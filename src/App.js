@@ -9,9 +9,10 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 
 import { useDispatch, useSelector } from "react-redux";
-import { selectAppLoading } from "./store/appState/selectors";
+import { selectAppLoading } from "./store/appState/selector";
 import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
+import {Home} from "./pages/Home";
 
 const Other = () => (
   <Jumbotron>
