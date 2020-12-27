@@ -40,7 +40,7 @@ export const signUp = (name, email, password) => {
             dispatch(showMessageWithTimeout("success", true, "account created"));
             dispatch(appDoneLoading());
         } catch (error) {
-            errorCatcher(error);
+            errorCatcher(error, dispatch);
         }
     };
 };
@@ -58,12 +58,12 @@ export const login = (email, password) => {
             dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));
             dispatch(appDoneLoading());
         } catch (error) {
-            errorCatcher(error);
+            errorCatcher(error, dispatch);
         }
     };
 };
 
-function errorCatcher(error) {
+function errorCatcher(error, dispatch) {
     if (error.response) {
         console.log(error.response.data.message);
         dispatch(setMessage("danger", true, error.response.data.message));
