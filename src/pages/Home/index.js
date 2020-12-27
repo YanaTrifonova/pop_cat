@@ -38,7 +38,7 @@ export function Home() {
         catSetter(document.getElementById('cat'));
     }, [aNote, bNote, cNote, dNote, eNote, fNote, gNote, cat])
 
-    function playNote(noteType) {
+    function play(noteType) {
         switch (noteType) {
             case "a" : {
                 aNote.currentTime = 0;
@@ -116,13 +116,13 @@ export function Home() {
             </Jumbotron>
 
             <div id="instrument">
-                <Button id="c" onMouseDown={() => playNote("c")} onMouseUp={unPlay} className="box">c</Button>
-                <Button id="d" onMouseDown={() => playNote("d")} onMouseUp={unPlay} className="box">d</Button>
-                <Button id="e" onMouseDown={() => playNote("e")} onMouseUp={unPlay} className="box">e</Button>
-                <Button id="f" onMouseDown={() => playNote("f")} onMouseUp={unPlay} className="box">f</Button>
-                <Button id="g" onMouseDown={() => playNote("g")} onMouseUp={unPlay} className="box">g</Button>
-                <Button id="a" onMouseDown={() => playNote("a")} onMouseUp={unPlay} className="box">a</Button>
-                <Button id="b" onMouseDown={() => playNote("b")} onMouseUp={unPlay} className="box">b</Button>
+                <Button id="c" onMouseDown={() => play("c")} onMouseUp={unPlay} className="box">c</Button>
+                <Button id="d" onMouseDown={() => play("d")} onMouseUp={unPlay} className="box">d</Button>
+                <Button id="e" onMouseDown={() => play("e")} onMouseUp={unPlay} className="box">e</Button>
+                <Button id="f" onMouseDown={() => play("f")} onMouseUp={unPlay} className="box">f</Button>
+                <Button id="g" onMouseDown={() => play("g")} onMouseUp={unPlay} className="box">g</Button>
+                <Button id="a" onMouseDown={() => play("a")} onMouseUp={unPlay} className="box">a</Button>
+                <Button id="b" onMouseDown={() => play("b")} onMouseUp={unPlay} className="box">b</Button>
             </div>
         </>
 
