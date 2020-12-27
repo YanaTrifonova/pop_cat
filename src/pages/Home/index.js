@@ -2,6 +2,8 @@ import {Jumbotron} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 
+import "./index.css";
+
 import aNoteAudio from "../../media/a_note.mp3";
 import bNoteAudio from "../../media/b_note.mp3";
 import cNoteAudio from "../../media/c_note.mp3";
@@ -9,6 +11,9 @@ import dNoteAudio from "../../media/d_note.mp3";
 import eNoteAudio from "../../media/e_note.mp3";
 import fNoteAudio from "../../media/f_note.mp3";
 import gNoteAudio from "../../media/g_note.mp3";
+
+import catWithOpenMouth from "../../images/cat_default_open_mouth.jpg";
+import catWithCloseMouth from "../../images/cat_default_close_mouth.jpg";
 
 export function Home() {
     const [aNote, aNoteSetter] = useState(null);
@@ -19,6 +24,8 @@ export function Home() {
     const [fNote, fNoteSetter] = useState(null);
     const [gNote, gNoteSetter] = useState(null);
 
+    const [cat, catSetter] = useState(null)
+
     useEffect(() => {
         aNoteSetter(document.getElementById('aAudio'));
         bNoteSetter(document.getElementById('bAudio'));
@@ -27,7 +34,9 @@ export function Home() {
         eNoteSetter(document.getElementById('eAudio'));
         fNoteSetter(document.getElementById('fAudio'));
         gNoteSetter(document.getElementById('gAudio'));
-    }, [aNote, bNote, cNote, dNote, eNote, fNote, gNote])
+
+        catSetter(document.getElementById('cat'));
+    }, [aNote, bNote, cNote, dNote, eNote, fNote, gNote, cat])
 
     function playNote(noteType) {
         switch (noteType) {
@@ -69,8 +78,12 @@ export function Home() {
             default :
                 return;
         }
-        cNote.currentTime = 0;
-        cNote.play();
+
+        cat.src = catWithOpenMouth;
+    }
+
+    function unPlay() {
+        cat.src = catWithCloseMouth;
     }
 
     return (
@@ -99,16 +112,17 @@ export function Home() {
 
             <Jumbotron>
                 <h1>Home</h1>
+                <img id="cat" src={catWithCloseMouth} alt="cat with close mouth"/>
             </Jumbotron>
 
             <div id="instrument">
-                <Button id="c" onMouseDown={() => playNote("c")} className="box">c</Button>
-                <Button id="d" onMouseDown={() => playNote("d")} className="box">d</Button>
-                <Button id="e" onMouseDown={() => playNote("e")} className="box">e</Button>
-                <Button id="f" onMouseDown={() => playNote("f")} className="box">f</Button>
-                <Button id="g" onMouseDown={() => playNote("g")} className="box">g</Button>
-                <Button id="a" onMouseDown={() => playNote("a")} className="box">a</Button>
-                <Button id="b" onMouseDown={() => playNote("b")} className="box">b</Button>
+                <Button id="c" onMouseDown={() => playNote("c")} onMouseUp={unPlay} className="box">c</Button>
+                <Button id="d" onMouseDown={() => playNote("d")} onMouseUp={unPlay} className="box">d</Button>
+                <Button id="e" onMouseDown={() => playNote("e")} onMouseUp={unPlay} className="box">e</Button>
+                <Button id="f" onMouseDown={() => playNote("f")} onMouseUp={unPlay} className="box">f</Button>
+                <Button id="g" onMouseDown={() => playNote("g")} onMouseUp={unPlay} className="box">g</Button>
+                <Button id="a" onMouseDown={() => playNote("a")} onMouseUp={unPlay} className="box">a</Button>
+                <Button id="b" onMouseDown={() => playNote("b")} onMouseUp={unPlay} className="box">b</Button>
             </div>
         </>
 
