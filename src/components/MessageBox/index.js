@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectMessage } from "../../store/appState/selectors";
+import { selectMessage } from "../../store/appState/selector";
 import { Alert } from "react-bootstrap";
 import { clearMessage } from "../../store/appState/actions";
 

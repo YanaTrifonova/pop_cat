@@ -1,6 +1,6 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { selectToken } from "./selectors";
+import { selectToken } from "./selector";
 import {
   appLoading,
   appDoneLoading,
@@ -27,7 +27,7 @@ const tokenStillValid = userWithoutToken => ({
 export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (name, email, password) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/signup`, {
@@ -40,20 +40,13 @@ export const signUp = (name, email, password) => {
       dispatch(showMessageWithTimeout("success", true, "account created"));
       dispatch(appDoneLoading());
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.message);
-        dispatch(setMessage("danger", true, error.response.data.message));
-      } else {
-        console.log(error.message);
-        dispatch(setMessage("danger", true, error.message));
-      }
-      dispatch(appDoneLoading());
+      errorCatcher(error);
     }
   };
 };
 
 export const login = (email, password) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/login`, {
@@ -65,17 +58,21 @@ export const login = (email, password) => {
       dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));
       dispatch(appDoneLoading());
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.message);
-        dispatch(setMessage("danger", true, error.response.data.message));
-      } else {
-        console.log(error.message);
-        dispatch(setMessage("danger", true, error.message));
-      }
-      dispatch(appDoneLoading());
+      errorCatcher(error);
     }
   };
 };
+
+function errorCatcher(error) {
+  if (error.response) {
+    console.log(error.response.data.message);
+    dispatch(setMessage("danger", true, error.response.data.message));
+  } else {
+    console.log(error.message);
+    dispatch(setMessage("danger", true, error.message));
+  }
+  dispatch(appDoneLoading());
+}
 
 export const getUserWithStoredToken = () => {
   return async (dispatch, getState) => {
