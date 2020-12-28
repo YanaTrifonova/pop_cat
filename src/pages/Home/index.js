@@ -12,8 +12,9 @@ import eNoteAudio from "../../media/e_note.mp3";
 import fNoteAudio from "../../media/f_note.mp3";
 import gNoteAudio from "../../media/g_note.mp3";
 
-import catWithOpenMouth from "../../images/cat_default_open_mouth.jpg";
-import catWithCloseMouth from "../../images/cat_default_close_mouth.jpg";
+import {notePlayer} from "./notePlayer";
+import {openCatMouth} from "./openCatMouth";
+import {closeCatMouth} from "./closeCatMouth";
 
 export function Home() {
     const [aNote, aNoteSetter] = useState(null);
@@ -39,51 +40,12 @@ export function Home() {
     }, [aNote, bNote, cNote, dNote, eNote, fNote, gNote, cat])
 
     function play(noteType) {
-        switch (noteType) {
-            case "a" : {
-                aNote.currentTime = 0;
-                aNote.play();
-                break;
-            }
-            case "b" : {
-                bNote.currentTime = 0;
-                bNote.play();
-                break;
-            }
-            case "c" : {
-                cNote.currentTime = 0;
-                cNote.play();
-                break;
-            }
-            case "d" : {
-                dNote.currentTime = 0;
-                dNote.play();
-                break;
-            }
-            case "e" : {
-                eNote.currentTime = 0;
-                eNote.play();
-                break;
-            }
-            case "f" : {
-                fNote.currentTime = 0;
-                fNote.play();
-                break;
-            }
-            case "g" : {
-                gNote.currentTime = 0;
-                gNote.play();
-                break;
-            }
-            default :
-                return;
-        }
-
-        cat.src = catWithOpenMouth;
+        notePlayer(noteType, aNote, bNote, cNote, dNote, eNote, fNote, gNote);
+        openCatMouth(cat);
     }
 
     function unPlay() {
-        cat.src = catWithCloseMouth;
+        closeCatMouth(cat);
     }
 
     return (
