@@ -1,4 +1,4 @@
-import {Col, Jumbotron, Nav, Row, Tab, Tabs} from "react-bootstrap";
+import {Button, Col, Jumbotron, Nav, Row, Tab, Tabs} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 
 import "./index.css";
@@ -201,7 +201,10 @@ export function Home() {
                     <Instrument cat={cat} notes={pigNotes}/>
                 </Tab>
             </Tabs>
+            <div className="button-record">
+                <Button variant="danger">Record</Button>
+                <Button variant="success">Save</Button>
+            </div>
         </>
-
     )
 }

@@ -2,3 +2,10 @@
     height: 400px;
     width: auto;
 }
+
+.button-record {
+    display: flex;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    justify-content: space-around;
+}
