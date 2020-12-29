@@ -117,27 +117,29 @@ export function Home() {
             <Audio id={pigId} type="pig"/>
 
             <Jumbotron>
-                <h1>Home</h1>
+                <h1>Cat:</h1>
 
-                <Tab.Container id="left-tabs-example" defaultActiveKey="first" onSelect={(k) => setCat(k)}
+                <Tab.Container id="left-tabs-example"
+                               defaultActiveKey="first"
+                               onSelect={(k) => setCat(k)}
                                activeKey={key}>
                     <Row>
                         <Col sm={3}>
                             <Nav variant="pills" className="flex-column">
                                 <Nav.Item>
-                                    <Nav.Link eventKey="catDefault">Default Cat</Nav.Link>
+                                    <Nav.Link eventKey="catDefault">Default</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="catPixel">Pixel Cat</Nav.Link>
+                                    <Nav.Link eventKey="catPixel">Pixel</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="catPirate">Pirate Cat</Nav.Link>
+                                    <Nav.Link eventKey="catPirate">Pirate</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="catWinter">Winter Cat</Nav.Link>
+                                    <Nav.Link eventKey="catWinter">Winter</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="catBW">Black and white Cat</Nav.Link>
+                                    <Nav.Link eventKey="catBW">Black and White</Nav.Link>
                                 </Nav.Item>
                             </Nav>
                         </Col>
