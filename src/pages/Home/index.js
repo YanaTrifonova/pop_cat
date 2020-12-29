@@ -95,7 +95,7 @@ export function Home() {
                 <Tab eventKey="heart-bit" title="Heart Bit">
                     <Instrument cat={cat} notes={heartBitNotes}/>
                 </Tab>
-                <Tab eventKey="cows" title="Cows">
+                <Tab eventKey="cows" title="Cow">
                     <Instrument cat={cat} notes={cowsNotes}/>
                 </Tab>
             </Tabs>
