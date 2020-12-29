@@ -1,9 +1,14 @@
-import {Jumbotron, Tab, Tabs} from "react-bootstrap";
+import {Col, Jumbotron, Nav, Row, Tab, Tabs} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 
 import "./index.css";
 
 import catWithCloseMouth from "../../images/default/cat_default_close_mouth.jpg";
+import pixelCatWithCloseMouth from "../../images/pixel/cat_pixel_close_mouth.jpg";
+import pirateCatWithCloseMouth from "../../images/pirate/cat_pirate_close_mouth.png";
+import winterCatWithCloseMouth from "../../images/winter/cat_winter_close_mouth.png";
+import bwCatWithCloseMouth from "../../images/b&w/cat_bw_close_mouth.png";
+
 import Audio from "../../components/Audio";
 import Instrument from "../../components/Instrument";
 import {setElementsToArrayById} from "./helpers";
@@ -22,8 +27,6 @@ import {
 } from "./export";
 
 export function Home() {
-    const [cat, catSetter] = useState(null);
-
     const [defaultNotes, setDefaultNotes] = useState([]);
     const [piano2Notes, setPiano2Notes] = useState([]);
     const [piano3Notes, setPiano3Notes] = useState([]);
@@ -35,6 +38,11 @@ export function Home() {
     const [heartBitNotes, setHeartBitNotes] = useState([]);
     const [cowsNotes, setCowsNotes] = useState([]);
     const [pigNotes, setPigNotes] = useState([]);
+
+    const [cat, catSetter] = useState(null);
+    const [catImg, catImgSetter] = useState(catWithCloseMouth);
+
+    const [key, setKey] = useState('catDefault');
 
     useEffect(() => {
         setDefaultNotes(setElementsToArrayById(defaultPianoId));
@@ -49,8 +57,54 @@ export function Home() {
         setCowsNotes(setElementsToArrayById(cowsId));
         setPigNotes(setElementsToArrayById(pigId));
 
-        catSetter(document.getElementById('cat'));
+        catSetter(document.getElementById('catDefault'));
+        catImgSetter(catWithCloseMouth);
     }, []);
+
+    function setCat(k) {
+        switch (k) {
+            case 'default' : {
+                catSetter(document.getElementById('catDefault'));
+                setKey('catDefault');
+                catImgSetter(catWithCloseMouth);
+                break;
+            }
+            case 'catPixel' : {
+                catSetter(document.getElementById('catPixel'));
+                setKey('catPixel');
+                catImgSetter(pixelCatWithCloseMouth);
+                break;
+            }
+            case 'catPirate' : {
+                catSetter(document.getElementById('catPirate'));
+                setKey('catPirate');
+                catImgSetter(pirateCatWithCloseMouth);
+                break;
+            }
+            case 'catWinter' : {
+                catSetter(document.getElementById('catWinter'));
+                setKey('catWinter');
+                catImgSetter(winterCatWithCloseMouth);
+                break;
+            }
+            case 'catBW' : {
+                catSetter(document.getElementById('catBW'));
+                setKey('catBW');
+                catImgSetter(bwCatWithCloseMouth);
+                break;
+            }
+            default : {
+                catSetter(document.getElementById('catDefault'));
+                setKey('catDefault');
+                catImgSetter(catWithCloseMouth);
+                break;
+            }
+        }
+
+        console.log("cat", cat);
+        console.log("catImg", catImg);
+        console.log("key", key);
+    }
 
     return (
         <>
@@ -69,7 +123,48 @@ export function Home() {
             <Jumbotron>
                 <h1>Home</h1>
 
-                <img id="cat" src={catWithCloseMouth} alt="cat with close mouth"/>
+                <Tab.Container id="left-tabs-example" defaultActiveKey="first" onSelect={(k) => setCat(k)} activeKey={key}>
+                    <Row>
+                        <Col sm={3}>
+                            <Nav variant="pills" className="flex-column">
+                                <Nav.Item>
+                                    <Nav.Link eventKey="catDefault">Default Cat</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="catPixel">Pixel Cat</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="catPirate">Pirate Cat</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="catWinter">Winter Cat</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="catBW">Black and white Cat</Nav.Link>
+                                </Nav.Item>
+                            </Nav>
+                        </Col>
+                        <Col sm={9}>
+                            <Tab.Content>
+                                <Tab.Pane eventKey="catDefault">
+                                    <img id="catDefault" className="cat" src={catImg} alt="cat with close mouth"/>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="catPixel">
+                                    <img id="catPixel" className="cat" src={catImg} alt="cat with close mouth"/>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="catPirate">
+                                    <img id="catPirate" className="cat" src={catImg} alt="cat with close mouth"/>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="catWinter">
+                                    <img id="catWinter" className="cat" src={catImg} alt="cat with close mouth"/>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="catBW">
+                                    <img id="catBW" className="cat" src={catImg} alt="cat with close mouth"/>
+                                </Tab.Pane>
+                            </Tab.Content>
+                        </Col>
+                    </Row>
+                </Tab.Container>
             </Jumbotron>
 
             <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
