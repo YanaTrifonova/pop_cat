@@ -124,7 +124,7 @@ export function Home() {
                                onSelect={(k) => setCat(k)}
                                activeKey={key}>
                     <Row>
-                        <Col sm={3}>
+                        <Col sm={2}>
                             <Nav variant="pills" className="flex-column">
                                 <Nav.Item>
                                     <Nav.Link eventKey="catDefault">Default</Nav.Link>
@@ -143,7 +143,7 @@ export function Home() {
                                 </Nav.Item>
                             </Nav>
                         </Col>
-                        <Col sm={9}>
+                        <Col sm={3}>
                             <Tab.Content>
                                 <Tab.Pane eventKey="catDefault">
                                     <img id="catDefault" className="cat" src={catImg} alt="cat with close mouth"/>
