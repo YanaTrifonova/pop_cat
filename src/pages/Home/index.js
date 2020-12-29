@@ -100,10 +100,6 @@ export function Home() {
                 break;
             }
         }
-
-        console.log("cat", cat);
-        console.log("catImg", catImg);
-        console.log("key", key);
     }
 
     return (
