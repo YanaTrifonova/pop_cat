@@ -4,6 +4,8 @@ import {defaultNotes} from "./export";
 import {play} from "./play";
 import {unPlay} from "./unPlay";
 
+import "./index.css";
+
 export default function Instrument(props) {
     const notes = props.notes;
     const cat = props.cat;
@@ -14,6 +16,7 @@ export default function Instrument(props) {
                 return (
                     <Button key={index}
                             id={note[index]}
+                            className="button-key"
                             onMouseDown={() => play(note, cat)}
                             onMouseUp={() => unPlay(cat)}>
                         {defaultNotes[index]}
