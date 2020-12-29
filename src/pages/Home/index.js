@@ -22,8 +22,8 @@ import {
     piano2Id,
     piano3Id,
     piano4Id,
-    sadViolinId,
     pigId,
+    sadViolinId,
 } from "./export";
 
 export function Home() {
@@ -119,7 +119,8 @@ export function Home() {
             <Jumbotron>
                 <h1>Home</h1>
 
-                <Tab.Container id="left-tabs-example" defaultActiveKey="first" onSelect={(k) => setCat(k)} activeKey={key}>
+                <Tab.Container id="left-tabs-example" defaultActiveKey="first" onSelect={(k) => setCat(k)}
+                               activeKey={key}>
                     <Row>
                         <Col sm={3}>
                             <Nav variant="pills" className="flex-column">

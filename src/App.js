@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import "./App.css";
 
-import {Switch, Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Loading from "./components/Loading";
 import MessageBox from "./components/MessageBox";

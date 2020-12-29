@@ -1,9 +1,4 @@
-import {
-    APP_LOADING,
-    APP_DONE_LOADING,
-    SET_MESSAGE,
-    CLEAR_MESSAGE
-} from "./actions";
+import {APP_DONE_LOADING, APP_LOADING, CLEAR_MESSAGE, SET_MESSAGE} from "./actions";
 
 const initialState = {
     loading: false,
