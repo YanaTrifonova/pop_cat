@@ -1,5 +1,5 @@
 import React from "react";
-import {defaultPianoAudios, piano2, piano3, piano4, bassDrum, sadViolin, dunDunDun, electricSaw, heartBit, cow} from "./imports";
+import {defaultPianoAudios, piano2, piano3, piano4, bassDrum, sadViolin, dunDunDun, electricSaw, heartBit, cow, pig} from "./imports";
 
 export default function Audio(props) {
     const ids = props.id;
@@ -45,6 +45,10 @@ export default function Audio(props) {
         }
         case "cows" : {
             audios = cow;
+            break;
+        }
+        case "pig" : {
+            audios = pig;
             break;
         }
         default :

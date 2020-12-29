@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 
 import "./index.css";
 
-import catWithCloseMouth from "../../images/cat_default_close_mouth.jpg";
+import catWithCloseMouth from "../../images/default/cat_default_close_mouth.jpg";
 import Audio from "../../components/Audio";
 import Instrument from "../../components/Instrument";
 import {setElementsToArrayById} from "./helpers";
@@ -17,7 +17,8 @@ import {
     piano2Id,
     piano3Id,
     piano4Id,
-    sadViolinId
+    sadViolinId,
+    pigId,
 } from "./export";
 
 export function Home() {
@@ -33,6 +34,7 @@ export function Home() {
     const [electricSawNotes, setElectricSawId] = useState([]);
     const [heartBitNotes, setHeartBitNotes] = useState([]);
     const [cowsNotes, setCowsNotes] = useState([]);
+    const [pigNotes, setPigNotes] = useState([]);
 
     useEffect(() => {
         setDefaultNotes(setElementsToArrayById(defaultPianoId));
@@ -45,6 +47,7 @@ export function Home() {
         setElectricSawId(setElementsToArrayById(electricSawId));
         setHeartBitNotes(setElementsToArrayById(heartBitId));
         setCowsNotes(setElementsToArrayById(cowsId));
+        setPigNotes(setElementsToArrayById(pigId));
 
         catSetter(document.getElementById('cat'));
     }, []);
@@ -61,9 +64,11 @@ export function Home() {
             <Audio id={electricSawId} type="electric-saw"/>
             <Audio id={heartBitId} type="heart-bit"/>
             <Audio id={cowsId} type="cows"/>
+            <Audio id={pigId} type="pig"/>
 
             <Jumbotron>
                 <h1>Home</h1>
+
                 <img id="cat" src={catWithCloseMouth} alt="cat with close mouth"/>
             </Jumbotron>
 
@@ -97,6 +102,9 @@ export function Home() {
                 </Tab>
                 <Tab eventKey="cows" title="Cow">
                     <Instrument cat={cat} notes={cowsNotes}/>
+                </Tab>
+                <Tab eventKey="pig" title="Pig">
+                    <Instrument cat={cat} notes={pigNotes}/>
                 </Tab>
             </Tabs>
         </>

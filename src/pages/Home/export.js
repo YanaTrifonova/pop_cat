@@ -97,3 +97,13 @@ export const sadViolinId = [
     'fAudioSadViolin',
     'gAudioSadViolin',
 ]
+
+export const pigId = [
+    'aAudioPig',
+    'bAudioPig',
+    'cAudioPig',
+    'dAudioPig',
+    'eAudioPig',
+    'fAudioPig',
+    'gAudioPig',
+]

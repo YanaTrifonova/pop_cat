@@ -79,6 +79,14 @@ import eNoteCow from "../../media/cow/Cow-Mooing-E.mp3";
 import fNoteCow from "../../media/cow/Cow-Moos-in-the-distance.mp3";
 import gNoteCow from "../../media/cow/Cow-Slow-Starting-Moo.mp3";
 
+import aNotePig from "../../media/pig/Pig-Heavy-Grunting-A.mp3";
+import bNotePig from "../../media/pig/Pig-Heavy-Screaming-A.mp3";
+import cNotePig from "../../media/pig/Pig-Heavy-Squealing-C.mp3";
+import dNotePig from "../../media/pig/Pig-Heavy-Squealing-D.mp3";
+import eNotePig from "../../media/pig/Pig-Oinking.mp3";
+import fNotePig from "../../media/pig/Pig-Squealing-A.mp3";
+import gNotePig from "../../media/pig/Pigs-Oinking-And-Squealing-A.mp3";
+
 export const defaultPianoAudios = [
     aNoteAudio,
     bNoteAudio,
@@ -177,4 +185,14 @@ export const cow = [
     eNoteCow,
     fNoteCow,
     gNoteCow,
+];
+
+export const pig = [
+    aNotePig,
+    bNotePig,
+    cNotePig,
+    dNotePig,
+    eNotePig,
+    fNotePig,
+    gNotePig,
 ];
