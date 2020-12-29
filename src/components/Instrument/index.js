@@ -8,8 +8,6 @@ export default function Instrument(props) {
     const notes = props.notes;
     const cat = props.cat;
 
-    console.log("notes", notes);
-
     return (
         <div className="instrument">
             {notes.map((note, index) => {
