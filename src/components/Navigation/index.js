@@ -16,7 +16,7 @@ export default function Navigation() {
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand as={NavLink} to="/">
-                YOUR PROJECT NAME
+                POP CAT SING A SONG
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
