@@ -8,7 +8,7 @@ import "./index.css";
 
 export default function Instrument(props) {
     const notes = props.notes;
-    const cat = props.cat;
+    const cat = document.getElementById(props.cat);
 
     return (
         <div className="instrument">

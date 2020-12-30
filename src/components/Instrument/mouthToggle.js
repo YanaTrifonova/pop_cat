@@ -11,7 +11,7 @@ import winterCatWithCloseMouth from "../../images/winter/cat_winter_close_mouth.
 import BWCatWithCloseMouth from "../../images/b&w/cat_bw_close_mouth.png";
 
 export function mouthToggle(cat, open) {
-    switch (cat.id) {
+    switch (cat?.id) {
         case 'catDefault' : {
             cat.src = open ? catWithOpenMouth : catWithCloseMouth;
             break;
@@ -32,9 +32,6 @@ export function mouthToggle(cat, open) {
             cat.src = open ? BWCatWithOpenMouth : BWCatWithCloseMouth;
             break;
         }
-        default : {
-            cat.src = open ? catWithOpenMouth : catWithCloseMouth;
-            break;
-        }
+        default : return null;
     }
 }
