@@ -1,5 +1,5 @@
 import {Button, Col, Jumbotron, Nav, Row, Tab, Tabs} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 import "./index.css";
 
@@ -11,7 +11,10 @@ import bwCatWithCloseMouth from "../../images/b&w/cat_bw_close_mouth.png";
 
 import Audio from "../../components/Audio";
 import Instrument from "../../components/Instrument";
+
 import {setElementsToArrayById} from "./helpers";
+import {audioSwitcher} from "./audioSwitcher";
+import {playOnKeyPress} from "./playOnKeyPress";
 import {
     bassDrumsId,
     cowsId,
@@ -25,6 +28,7 @@ import {
     pigId,
     sadViolinId,
 } from "./export";
+import {unPlayOnKeyPress} from "./unPlayOnKeyPress";
 
 export function Home() {
     const [defaultNotes, setDefaultNotes] = useState([]);
@@ -38,13 +42,31 @@ export function Home() {
     const [heartBitNotes, setHeartBitNotes] = useState([]);
     const [cowsNotes, setCowsNotes] = useState([]);
     const [pigNotes, setPigNotes] = useState([]);
-
-    const [cat, catSetter] = useState(null);
+    
     const [catImg, catImgSetter] = useState(catWithCloseMouth);
 
     const [key, setKey] = useState('catDefault');
+    const [instrument, setInstrument] = useState('home');
+
+    const keyPressed = useCallback(event => {
+        if (defaultNotes.length !== 0) {
+            console.log("instrument", instrument);
+
+            const audioType = audioSwitcher(
+                instrument, defaultNotes, piano2Notes, piano3Notes, piano4Notes, bassDrumsNotes, sadViolinNotes,
+                dunDunDunNotes, electricSawNotes, heartBitNotes, cowsNotes, pigNotes
+            );
+
+            playOnKeyPress(event.key.toLowerCase(), audioType, document.getElementById(key));
+        }
+    }, [instrument, key, defaultNotes.length]);
+
+    const keyUp = useCallback( _ => {
+        unPlayOnKeyPress(document.getElementById(key));
+    }, [key])
 
     useEffect(() => {
+        console.log("RENDER");
         setDefaultNotes(setElementsToArrayById(defaultPianoId));
         setPiano2Notes(setElementsToArrayById(piano2Id));
         setPiano3Notes(setElementsToArrayById(piano3Id));
@@ -57,44 +79,48 @@ export function Home() {
         setCowsNotes(setElementsToArrayById(cowsId));
         setPigNotes(setElementsToArrayById(pigId));
 
-        catSetter(document.getElementById('catDefault'));
-        catImgSetter(catWithCloseMouth);
-    }, []);
+        document.addEventListener("keypress", keyPressed, false);
+        document.addEventListener("keyup", keyUp, false);
+
+        return () => {
+            document.removeEventListener("keypress", keyPressed, false);
+            document.removeEventListener("keyup", keyUp, false);
+        };
+    }, [keyUp, keyPressed]);
+
+
+    function setInstrumentTabAction(k) {
+        setInstrument(k);
+    }
 
     function setCat(k) {
         switch (k) {
-            case 'default' : {
-                catSetter(document.getElementById('catDefault'));
+            case 'catDefault' : {
                 setKey('catDefault');
                 catImgSetter(catWithCloseMouth);
                 break;
             }
             case 'catPixel' : {
-                catSetter(document.getElementById('catPixel'));
                 setKey('catPixel');
                 catImgSetter(pixelCatWithCloseMouth);
                 break;
             }
             case 'catPirate' : {
-                catSetter(document.getElementById('catPirate'));
                 setKey('catPirate');
                 catImgSetter(pirateCatWithCloseMouth);
                 break;
             }
             case 'catWinter' : {
-                catSetter(document.getElementById('catWinter'));
                 setKey('catWinter');
                 catImgSetter(winterCatWithCloseMouth);
                 break;
             }
             case 'catBW' : {
-                catSetter(document.getElementById('catBW'));
                 setKey('catBW');
                 catImgSetter(bwCatWithCloseMouth);
                 break;
             }
             default : {
-                catSetter(document.getElementById('catDefault'));
                 setKey('catDefault');
                 catImgSetter(catWithCloseMouth);
                 break;
@@ -118,11 +144,11 @@ export function Home() {
 
             <Jumbotron>
                 <h1>Cat:</h1>
-
                 <Tab.Container id="left-tabs-example"
                                defaultActiveKey="first"
                                onSelect={(k) => setCat(k)}
-                               activeKey={key}>
+                               activeKey={key}
+                >
                     <Row>
                         <Col sm={2}>
                             <Nav variant="pills" className="flex-column">
@@ -166,39 +192,45 @@ export function Home() {
                 </Tab.Container>
             </Jumbotron>
 
-            <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
+            <Tabs
+                id="controlled-tab"
+                className="instrument-tabs"
+                defaultActiveKey="home"
+                onSelect={(k) => setInstrumentTabAction(k)}
+                activeKey={instrument}
+            >
                 <Tab eventKey="home" title="default-piano">
-                    <Instrument cat={cat} notes={defaultNotes}/>
+                    <Instrument cat={key} notes={defaultNotes}/>
                 </Tab>
                 <Tab eventKey="piano-2" title="piano-2">
-                    <Instrument cat={cat} notes={piano2Notes}/>
+                    <Instrument cat={key} notes={piano2Notes}/>
                 </Tab>
                 <Tab eventKey="piano-3" title="piano-3">
-                    <Instrument cat={cat} notes={piano3Notes}/>
+                    <Instrument cat={key} notes={piano3Notes}/>
                 </Tab>
                 <Tab eventKey="piano-4" title="piano-4">
-                    <Instrument cat={cat} notes={piano4Notes}/>
+                    <Instrument cat={key} notes={piano4Notes}/>
                 </Tab>
                 <Tab eventKey="bass-drum" title="Bass Drum">
-                    <Instrument cat={cat} notes={bassDrumsNotes}/>
+                    <Instrument cat={key} notes={bassDrumsNotes}/>
                 </Tab>
                 <Tab eventKey="sad-violin" title="Sad Violin">
-                    <Instrument cat={cat} notes={sadViolinNotes}/>
+                    <Instrument cat={key} notes={sadViolinNotes}/>
                 </Tab>
                 <Tab eventKey="dun-dun-dun" title="Dun Dun Dun">
-                    <Instrument cat={cat} notes={dunDunDunNotes}/>
+                    <Instrument cat={key} notes={dunDunDunNotes}/>
                 </Tab>
                 <Tab eventKey="electric-saw" title="Electric Saw">
-                    <Instrument cat={cat} notes={electricSawNotes}/>
+                    <Instrument cat={key} notes={electricSawNotes}/>
                 </Tab>
                 <Tab eventKey="heart-bit" title="Heart Bit">
-                    <Instrument cat={cat} notes={heartBitNotes}/>
+                    <Instrument cat={key} notes={heartBitNotes}/>
                 </Tab>
                 <Tab eventKey="cows" title="Cow">
-                    <Instrument cat={cat} notes={cowsNotes}/>
+                    <Instrument cat={key} notes={cowsNotes}/>
                 </Tab>
                 <Tab eventKey="pig" title="Pig">
-                    <Instrument cat={cat} notes={pigNotes}/>
+                    <Instrument cat={key} notes={pigNotes}/>
                 </Tab>
             </Tabs>
             <div className="button-record">
