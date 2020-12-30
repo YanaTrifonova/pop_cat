@@ -9,3 +9,7 @@
     margin-right: 2rem;
     justify-content: space-around;
 }
+
+.instrument-tabs {
+    justify-content: center;
+}
