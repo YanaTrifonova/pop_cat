@@ -50,8 +50,6 @@ export function Home() {
 
     const keyPressed = useCallback(event => {
         if (defaultNotes.length !== 0) {
-            console.log("instrument", instrument);
-
             const audioType = audioSwitcher(
                 instrument, defaultNotes, piano2Notes, piano3Notes, piano4Notes, bassDrumsNotes, sadViolinNotes,
                 dunDunDunNotes, electricSawNotes, heartBitNotes, cowsNotes, pigNotes
