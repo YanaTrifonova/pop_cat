@@ -14,7 +14,6 @@ import Instrument from "../../components/Instrument";
 
 import {setElementsToArrayById} from "./helpers";
 import {audioSwitcher} from "./audioSwitcher";
-import {playOnKeyPress} from "./playOnKeyPress";
 import {
     bassDrumsId,
     cowsId,
@@ -28,7 +27,8 @@ import {
     pigId,
     sadViolinId,
 } from "./export";
-import {unPlayOnKeyPress} from "./unPlayOnKeyPress";
+import {play} from "../../components/Instrument/play";
+import {closeCatMouth} from "../../components/Instrument/closeCatMouth";
 
 export function Home() {
     const [defaultNotes, setDefaultNotes] = useState([]);
@@ -48,19 +48,70 @@ export function Home() {
     const [cat, setCat] = useState('catDefault');
     const [instrument, setInstrument] = useState('home');
 
+    const [keyPressedEvent, setKeyPressedEvent] = useState(null);
+
     const keyPressed = useCallback(event => {
         if (defaultNotes.length !== 0) {
+            const eventKey = event.key.toLowerCase();
+
             const audioType = audioSwitcher(
                 instrument, defaultNotes, piano2Notes, piano3Notes, piano4Notes, bassDrumsNotes, sadViolinNotes,
                 dunDunDunNotes, electricSawNotes, heartBitNotes, cowsNotes, pigNotes
             );
 
-            playOnKeyPress(event.key.toLowerCase(), audioType, document.getElementById(cat));
+            const catElement = document.getElementById(cat);
+            switch (eventKey) {
+                case "1" :
+                case "c" : {
+                    play(audioType[0], catElement);
+                    setKeyPressedEvent("c");
+                    break;
+                }
+                case "2" :
+                case "d" : {
+                    play(audioType[1], catElement);
+                    setKeyPressedEvent("d");
+                    break;
+                }
+                case "3" :
+                case "e" : {
+                    play(audioType[2], catElement);
+                    setKeyPressedEvent("e");
+                    break;
+                }
+                case "4" :
+                case "f" : {
+                    play(audioType[3], catElement);
+                    setKeyPressedEvent("f");
+                    break;
+                }
+                case "5" :
+                case "g" : {
+                    play(audioType[4], catElement);
+                    setKeyPressedEvent("g");
+                    break;
+                }
+                case "6" :
+                case "a" : {
+                    play(audioType[5], catElement);
+                    setKeyPressedEvent("a");
+                    break;
+                }
+                case "7" :
+                case "b" : {
+                    play(audioType[6], catElement);
+                    setKeyPressedEvent("b");
+                    break;
+                }
+                default :
+                    return null;
+            }
         }
     }, [instrument, cat, defaultNotes.length]);
 
     const keyUp = useCallback( _ => {
-        unPlayOnKeyPress(document.getElementById(cat));
+        closeCatMouth(document.getElementById(cat));
+        setKeyPressedEvent(null);
     }, [cat])
 
     useEffect(() => {
@@ -198,37 +249,37 @@ export function Home() {
                 activeKey={instrument}
             >
                 <Tab eventKey="home" title="default-piano">
-                    <Instrument cat={cat} notes={defaultNotes}/>
+                    <Instrument cat={cat} notes={defaultNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="piano-2" title="piano-2">
-                    <Instrument cat={cat} notes={piano2Notes}/>
+                    <Instrument cat={cat} notes={piano2Notes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="piano-3" title="piano-3">
-                    <Instrument cat={cat} notes={piano3Notes}/>
+                    <Instrument cat={cat} notes={piano3Notes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="piano-4" title="piano-4">
-                    <Instrument cat={cat} notes={piano4Notes}/>
+                    <Instrument cat={cat} notes={piano4Notes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="bass-drum" title="Bass Drum">
-                    <Instrument cat={cat} notes={bassDrumsNotes}/>
+                    <Instrument cat={cat} notes={bassDrumsNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="sad-violin" title="Sad Violin">
-                    <Instrument cat={cat} notes={sadViolinNotes}/>
+                    <Instrument cat={cat} notes={sadViolinNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="dun-dun-dun" title="Dun Dun Dun">
-                    <Instrument cat={cat} notes={dunDunDunNotes}/>
+                    <Instrument cat={cat} notes={dunDunDunNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="electric-saw" title="Electric Saw">
-                    <Instrument cat={cat} notes={electricSawNotes}/>
+                    <Instrument cat={cat} notes={electricSawNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="heart-bit" title="Heart Bit">
-                    <Instrument cat={cat} notes={heartBitNotes}/>
+                    <Instrument cat={cat} notes={heartBitNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="cows" title="Cow">
-                    <Instrument cat={cat} notes={cowsNotes}/>
+                    <Instrument cat={cat} notes={cowsNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
                 <Tab eventKey="pig" title="Pig">
-                    <Instrument cat={cat} notes={pigNotes}/>
+                    <Instrument cat={cat} notes={pigNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
             </Tabs>
             <div className="button-record">
