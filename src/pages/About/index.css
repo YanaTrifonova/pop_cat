@@ -1,0 +1,15 @@
+.header-container {
+    padding: 4rem 2rem;
+}
+
+.text-container {
+    width: 594px;
+    margin: 0 auto;
+}
+
+.video {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
