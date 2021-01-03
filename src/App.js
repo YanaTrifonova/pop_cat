@@ -11,14 +11,8 @@ import Login from "./pages/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAppLoading} from "./store/appState/selector";
 import {getUserWithStoredToken} from "./store/user/actions";
-import {Jumbotron} from "react-bootstrap";
 import {Home} from "./pages/Home";
-
-const Other = () => (
-    <Jumbotron>
-        <h1>Other</h1>
-    </Jumbotron>
-);
+import {Discover} from "./pages/Discover";
 
 function App() {
     const dispatch = useDispatch();
@@ -35,7 +29,7 @@ function App() {
             {isLoading ? <Loading/> : null}
             <Switch>
                 <Route exact path="/" component={Home}/>
-                <Route path="/other" component={Other}/>
+                <Route path="/discover" component={Discover}/>
                 <Route path="/signup" component={SignUp}/>
                 <Route path="/login" component={Login}/>
             </Switch>
