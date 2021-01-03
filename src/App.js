@@ -13,6 +13,7 @@ import {selectAppLoading} from "./store/appState/selector";
 import {getUserWithStoredToken} from "./store/user/actions";
 import {Home} from "./pages/Home";
 import {Discover} from "./pages/Discover";
+import {MySongs} from "./pages/MySongs";
 
 function App() {
     const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
             <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route path="/discover" component={Discover}/>
+                <Route path="/private" component={MySongs}/>
                 <Route path="/signup" component={SignUp}/>
                 <Route path="/login" component={Login}/>
             </Switch>
