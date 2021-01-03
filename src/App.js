@@ -14,6 +14,7 @@ import {getUserWithStoredToken} from "./store/user/actions";
 import {Home} from "./pages/Home";
 import {Discover} from "./pages/Discover";
 import {MySongs} from "./pages/MySongs";
+import {AboutPopCat} from "./pages/About";
 
 function App() {
     const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function App() {
                 <Route exact path="/" component={Home}/>
                 <Route path="/discover" component={Discover}/>
                 <Route path="/private" component={MySongs}/>
+                <Route path="/about" component={AboutPopCat}/>
                 <Route path="/signup" component={SignUp}/>
                 <Route path="/login" component={Login}/>
             </Switch>
