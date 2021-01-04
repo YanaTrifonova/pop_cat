@@ -55,10 +55,23 @@ export default function AboutPopCat() {
             <Jumbotron>
                 <h1>About Me</h1>
                 <div className="text-container">
-                    <p>If you like my work please feel free to contact me via <a
-                        href="https://www.linkedin.com/in/yana-trifonova-0920b3179/" target="_blank">LinkedIn</a> or <a
-                        href="mailto: trifonova.yana.prof@gmail.com?subject=Hello there!">email</a>. Also you can see my
-                        other projects at <a href="https://github.com/YanaTrifonova" target="_blank">Github</a>.</p>
+                    <p>If you like my work please feel free to contact me via
+                        <a href="https://www.linkedin.com/in/yana-trifonova-0920b3179/"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            LinkedIn
+                        </a>
+                        or
+                        <a
+                            href="mailto: trifonova.yana.prof@gmail.com?subject=Hello there!">
+                            email
+                        </a>. Also you can see my other projects at
+                        <a href="https://github.com/YanaTrifonova"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Github
+                        </a>.
+                    </p>
                 </div>
             </Jumbotron>
         </>
