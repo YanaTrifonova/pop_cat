@@ -30,7 +30,7 @@ import {
 import {play} from "../../components/Instrument/play";
 import {closeCatMouth} from "../../components/Instrument/closeCatMouth";
 
-export function Home() {
+export default function Home() {
     const [defaultNotes, setDefaultNotes] = useState([]);
     const [piano2Notes, setPiano2Notes] = useState([]);
     const [piano3Notes, setPiano3Notes] = useState([]);

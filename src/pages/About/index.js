@@ -3,7 +3,7 @@ import React from "react";
 
 import "./index.css";
 
-export function AboutPopCat() {
+export default function AboutPopCat() {
 
     return (
         <>

@@ -1,7 +1,7 @@
 import {Jumbotron} from "react-bootstrap";
 import React from "react";
 
-export function MySongs() {
+export default function MySongs() {
 
     return(
         <Jumbotron>
