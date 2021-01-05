@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Route, Switch} from 'react-router';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
 import SignUp from "./pages/SignUp";
@@ -27,19 +27,22 @@ function App() {
     }, [dispatch]);
 
     return (
-        <div className="App">
-            <Navigation/>
-            <MessageBox/>
-            {isLoading ? <Loading/> : null}
-            <Switch>
-                <Route exact path="/" component={Home}/>
-                <Route path="/discover" component={Discover}/>
-                <Route path="/private" component={MySongs}/>
-                <Route path="/about" component={AboutPopCat}/>
-                <Route path="/signup" component={SignUp}/>
-                <Route path="/login" component={Login}/>
-            </Switch>
-        </div>
+        <Router>
+            <div className="App">
+                <Navigation/>
+                <MessageBox/>
+                {isLoading ? <Loading/> : null}
+                <Switch>
+                    <Route exact path="/" component={Home}/>
+                    <Route path="/discover" component={Discover}/>
+                    <Route path="/private" component={MySongs}/>
+                    <Route path="/about" component={AboutPopCat}/>
+                    <Route path="/signup" component={SignUp}/>
+                    <Route path="/login" component={Login}/>
+                </Switch>
+            </div>
+        </Router>
+
     );
 }
 
