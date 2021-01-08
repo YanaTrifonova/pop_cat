@@ -58,18 +58,12 @@ export default function AboutPopCat() {
                     <p>If you like my work please feel free to contact me via
                         <a href="https://www.linkedin.com/in/yana-trifonova-0920b3179/"
                            target="_blank"
-                           rel="noopener noreferrer">
-                            LinkedIn
-                        </a>
-                        or
-                        <a
-                            href="mailto: trifonova.yana.prof@gmail.com?subject=Hello there!">
-                            email
-                        </a>. Also you can see my other projects at
+                           rel="noopener noreferrer"> LinkedIn</a> or
+                        <a href="mailto: trifonova.yana.prof@gmail.com?subject=Hello there!"> email</a>. Also you can
+                        see my other projects at
                         <a href="https://github.com/YanaTrifonova"
                            target="_blank"
-                           rel="noopener noreferrer">
-                            Github
+                           rel="noopener noreferrer"> Github
                         </a>.
                     </p>
                 </div>
