@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Discover from "./pages/Discover";
 import MySongs from "./pages/MySongs";
+import Favorites from "./pages/Favorites";
 import AboutPopCat from "./pages/About";
 
 import Navigation from "./components/Navigation";
@@ -17,7 +18,6 @@ import {selectAppLoading} from "./store/appState/selector";
 import {getUserWithStoredToken} from "./store/user/actions";
 
 import "./App.css";
-import Favorites from "./pages/Favorites";
 
 function App() {
     const dispatch = useDispatch();
