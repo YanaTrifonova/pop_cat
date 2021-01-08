@@ -17,6 +17,7 @@ import {selectAppLoading} from "./store/appState/selector";
 import {getUserWithStoredToken} from "./store/user/actions";
 
 import "./App.css";
+import Favorites from "./pages/Favorites";
 
 function App() {
     const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
                     <Route exact path="/" component={Home}/>
                     <Route path="/discover" component={Discover}/>
                     <Route path="/private" component={MySongs}/>
+                    <Route path="/favorites" component={Favorites}/>
                     <Route path="/about" component={AboutPopCat}/>
                     <Route path="/signup" component={SignUp}/>
                     <Route path="/login" component={Login}/>
