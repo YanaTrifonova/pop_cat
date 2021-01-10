@@ -27,28 +27,28 @@ Backend repository - [link](https://github.com/YanaTrifonova/pop_cat_server)
 USER STORY FOR "POP SING A SONG" WEBSITE
 
 - stranger that do not log in could
-    - go to LOGIN PAGE
+    - go to LOG IN PAGE
         - fill form to log in as a user
             - enter email address (unique)
             - enter a name (unique)
             - click "log in"
             - see a message about successful log in and forward to HOME PAGE
         - fill form to sign up if you have never be a user of this website
-            - enter email address (unique)
-            - enter name (unique)
+            - enter the email address (unique)
+            - enter the name (unique)
             - enter password
             - click "sign in"
             - see a message about successful sign in and forward to HOME PAGE
     - go to HOME PAGE
         - and play a song (but could not record it)
-            - with cat that they chose
+            - with a cat that they chose
             - with an instrument that they chose
     - go to "DISCOVER" page with songs of other users
         - and listen to them
     - go to "ABOUT ME" page
         - and read about popping cat history of creation
 - user that log in could
-    - go to LOGOUT PAGE
+    - go to LOG OUT PAGE
         - to log out
         - see a message about successful log out
     - go to HOME PAGE
@@ -85,7 +85,6 @@ USER STORY FOR "POP SING A SONG" WEBSITE
             - rename with new title
             - rename with new description
             - delete
-
 
 ## Run in development mode
 
