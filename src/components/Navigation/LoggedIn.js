@@ -12,8 +12,6 @@ export default function LoggedIn() {
             alignItems: "center",
         },
         email: {
-            paddingTop: ".5rem",
-            paddingBottom: ".5rem",
             paddingLeft:  "1rem",
             paddingRight:  "1rem"
         }
