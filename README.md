@@ -85,6 +85,12 @@ USER STORY FOR "POP SING A SONG" WEBSITE
             - rename with new title
             - rename with new description
             - delete
+    
+## Project status board
+[Link to GitHub project](https://github.com/YanaTrifonova/pop_cat/projects/1)
+
+## Wireframes
+[User scenarios in Figma](https://www.figma.com/file/hJTSCDzAOvyKey14xBgKCz/POP-CAT-SING-A-SONG?node-id=0%3A1)
 
 ## Run in development mode
 
