@@ -1,10 +1,10 @@
 import React from "react";
-import NavbarItem from "./NavbarItem";
+import {Button} from "@material-ui/core";
 
 export default function LoggedOut() {
     return (
         <>
-            <NavbarItem path="/login" linkText="Login"/>
+            <Button href="/login" color="primary">Login</Button>
         </>
     );
 }

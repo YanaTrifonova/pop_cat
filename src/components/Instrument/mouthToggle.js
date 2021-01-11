@@ -32,6 +32,7 @@ export function mouthToggle(cat, open) {
             cat.src = open ? BWCatWithOpenMouth : BWCatWithCloseMouth;
             break;
         }
-        default : return null;
+        default :
+            return null;
     }
 }

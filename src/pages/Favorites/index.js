@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Favorites() {
 
-    return(
+    return (
         <Jumbotron>
             <h1>Favorites songs</h1>
         </Jumbotron>

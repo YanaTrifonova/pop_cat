@@ -1,34 +1,54 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectToken} from "../../store/user/selector";
-import NavbarItem from "./NavbarItem";
 import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";
+import {Box, Button, makeStyles, Typography} from "@material-ui/core";
 
 export default function Navigation() {
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            display: "flex",
+            alignItems: "center",
+        },
+        menuButton: {
+            marginRight: theme.spacing(2),
+        },
+        title: {
+            marginRight: theme.spacing(4),
+        },
+        menuLogin: {
+            textAlign: "right",
+            flexGrow: 1
+        },
+        link: {
+            color: "inherit",
+            "&:hover, &:focus": {
+                textDecoration: 'none',
+                color: "inherit"
+            }
+        }
+    }));
     const token = useSelector(selectToken);
 
     const loginLogoutControls = token ? <LoggedIn/> : <LoggedOut/>;
 
+    const classes = useStyles();
+
     return (
-        <Navbar bg="light" expand="lg">
-            <Navbar.Brand as={NavLink} to="/">
-                POP CAT SING A SONG
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav style={{width: "100%"}} fill>
-                    <NavbarItem path="/" linkText="Home"/>
-                    <NavbarItem path="/private" linkText="My songs"/>
-                    <NavbarItem path="/discover" linkText="Discover"/>
-                    <NavbarItem path="/favorites" linkText="Favorites"/>
-                    <NavbarItem path="/about" linkText="About Me"/>
-                    {loginLogoutControls}
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
+        <Box className={classes.root} color="inherit" p={3}>
+            <Typography className={classes.title}><a className={classes.link} href="/">POP CAT SING A
+                SONG</a></Typography>
+            <Box className={classes.menuButton}>
+                <Button href="/" color="primary">Home</Button>
+                <Button href="/private" color="primary">My songs</Button>
+                <Button href="/discover" color="primary">Discover</Button>
+                <Button href="/favorites" color="primary">Favorites</Button>
+                <Button href="/about" color="primary">About Me</Button>
+            </Box>
+            <Box className={classes.menuLogin}>
+                {loginLogoutControls}
+            </Box>
+        </Box>
     );
 }

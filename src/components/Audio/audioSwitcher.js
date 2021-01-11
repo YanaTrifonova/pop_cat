@@ -1,12 +1,14 @@
 import {
-    bassDrum, cow,
+    bassDrum,
+    cow,
     defaultPianoAudios,
     dunDunDun,
     electricSaw,
     heartBit,
     piano2,
     piano3,
-    piano4, pig,
+    piano4,
+    pig,
     sadViolin
 } from "./imports";
 

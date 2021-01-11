@@ -42,7 +42,7 @@ export default function Home() {
     const [heartBitNotes, setHeartBitNotes] = useState([]);
     const [cowsNotes, setCowsNotes] = useState([]);
     const [pigNotes, setPigNotes] = useState([]);
-    
+
     const [catImg, catImgSetter] = useState(catWithCloseMouth);
 
     const [cat, setCat] = useState('catDefault');
@@ -109,7 +109,7 @@ export default function Home() {
         }
     }, [instrument, cat, defaultNotes.length]);
 
-    const keyUp = useCallback( _ => {
+    const keyUp = useCallback(_ => {
         closeCatMouth(document.getElementById(cat));
         setKeyPressedEvent(null);
     }, [cat])

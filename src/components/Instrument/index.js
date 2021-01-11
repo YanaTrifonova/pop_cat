@@ -36,7 +36,9 @@ export default function Instrument(props) {
                                 unPlay(cat);
                                 unClicked();
                             }}
-                            variant={clickedButtonId === defaultNotes[index] || keyEvent === defaultNotes[index] ? 'danger' : "primary"}>
+                            variant={clickedButtonId === defaultNotes[index] || keyEvent === defaultNotes[index]
+                                     ? 'danger'
+                                     : "primary"}>
                         {defaultNotes[index]}
                     </Button>
                 )
