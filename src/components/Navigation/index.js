@@ -29,11 +29,12 @@ export default function Navigation() {
             }
         }
     }));
+
+    const classes = useStyles();
+
     const token = useSelector(selectToken);
 
     const loginLogoutControls = token ? <LoggedIn/> : <LoggedOut/>;
-
-    const classes = useStyles();
 
     return (
         <Box className={classes.root} color="inherit" p={3}>
