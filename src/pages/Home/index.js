@@ -29,6 +29,8 @@ import {
 } from "./export";
 import {play} from "../../components/Instrument/play";
 import {closeCatMouth} from "../../components/Instrument/closeCatMouth";
+import Timer from "./timer";
+import OnSaveModal from "./modal";
 
 export default function Home() {
     const [defaultNotes, setDefaultNotes] = useState([]);
@@ -42,13 +44,19 @@ export default function Home() {
     const [heartBitNotes, setHeartBitNotes] = useState([]);
     const [cowsNotes, setCowsNotes] = useState([]);
     const [pigNotes, setPigNotes] = useState([]);
-    
+
     const [catImg, catImgSetter] = useState(catWithCloseMouth);
 
     const [cat, setCat] = useState('catDefault');
     const [instrument, setInstrument] = useState('home');
 
     const [keyPressedEvent, setKeyPressedEvent] = useState(null);
+
+    const [openRecordPanel, setOpenRecordPanel] = useState(false);
+    const [disableOnStop, setDisableOnStop] = useState(false);
+    const [timer, setTimer] = useState(false);
+
+    const [modalShow, setModalShow] = useState(false);
 
     const keyPressed = useCallback(event => {
         if (defaultNotes.length !== 0) {
@@ -109,10 +117,10 @@ export default function Home() {
         }
     }, [instrument, cat, defaultNotes.length]);
 
-    const keyUp = useCallback( _ => {
+    const keyUp = useCallback(_ => {
         closeCatMouth(document.getElementById(cat));
         setKeyPressedEvent(null);
-    }, [cat])
+    }, [cat]);
 
     useEffect(() => {
         console.log("RENDER");
@@ -135,14 +143,23 @@ export default function Home() {
             document.removeEventListener("keypress", keyPressed, false);
             document.removeEventListener("keyup", keyUp, false);
         };
-    }, [keyUp, keyPressed]);
-
+    }, [keyUp, keyPressed, openRecordPanel]);
 
     function setInstrumentTabAction(k) {
+        //close record panel when User picked new instrument
+        if (k !== instrument) {
+            setOpenRecordPanel(false);
+        }
+
         setInstrument(k);
     }
 
     function setCatOnSelect(k) {
+        //close record panel when User picked new cat
+        if (k !== cat) {
+            setOpenRecordPanel(false);
+        }
+
         switch (k) {
             case 'catDefault' : {
                 setCat('catDefault');
@@ -174,6 +191,78 @@ export default function Home() {
                 catImgSetter(catWithCloseMouth);
                 break;
             }
+        }
+    }
+
+    function onRecordClicked() {
+        _logsForRecords("RECORD");
+
+        setOpenRecordPanel(true);
+        setTimer(true);
+
+    }
+
+    function onStopRecordClicked() {
+        _logsForRecords("STOP");
+
+        setTimer(false);
+        setDisableOnStop(true);
+    }
+
+    function onCancelRecordClicked() {
+        _logsForRecords("CANCEL");
+
+        setOpenRecordPanel(false);
+        setDisableOnStop(false);
+    }
+
+    function onSaveButtonClicked() {
+        setModalShow(true);
+
+        // remove listeners to prevent playing notes when user enter description with letters that are defined as notes
+        document.removeEventListener("keypress", keyPressed, false);
+        document.removeEventListener("keyup", keyUp, false);
+    }
+
+    function onListenButtonClicked() {
+        _logsForRecords("LISTEN");
+    }
+
+    function onRevertButtonClicked() {
+        _logsForRecords("REVERT");
+    }
+
+    function _logsForRecords(functionName) {
+        console.log(functionName, new Date());
+        console.log(`
+            openRecordPanel = ${openRecordPanel}
+            disableOnStop = ${disableOnStop}
+            timer = ${timer}
+            modalShow = ${modalShow}
+        `);
+    }
+
+    function _logsForModal(buttonType) {
+        console.log(buttonType, new Date());
+    }
+
+    function modalButtonClicked(buttonType, name, description) {
+        _logsForModal(buttonType);
+
+        if (buttonType === 'cancel') {
+            setModalShow(false);
+            setOpenRecordPanel(false);
+            setDisableOnStop(false);
+        }
+
+        if (buttonType === 'save') {
+            _logsForRecords("SAVE");
+            setModalShow(false);
+            setOpenRecordPanel(false);
+            setDisableOnStop(false);
+
+            console.log("song name", name);
+            console.log("song description", description);
         }
     }
 
@@ -246,8 +335,7 @@ export default function Home() {
                 className="instrument-tabs"
                 defaultActiveKey="home"
                 onSelect={(k) => setInstrumentTabAction(k)}
-                activeKey={instrument}
-            >
+                activeKey={instrument}>
                 <Tab eventKey="home" title="default-piano">
                     <Instrument cat={cat} notes={defaultNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
@@ -282,9 +370,25 @@ export default function Home() {
                     <Instrument cat={cat} notes={pigNotes} keyEvent={keyPressedEvent}/>
                 </Tab>
             </Tabs>
+
             <div className="button-record">
-                <Button variant="danger">Record</Button>
-                <Button variant="success">Save</Button>
+                <Button variant="danger" disabled={disableOnStop} onClick={onRecordClicked}>Record</Button>
+                {openRecordPanel
+                 ? <>
+                     <Button variant="primary" disabled={disableOnStop} onClick={onStopRecordClicked}>Stop</Button>
+                     <Timer isActive={timer}/>
+                     <Button variant="primary" onClick={onListenButtonClicked} disabled={timer}>Listen</Button>
+                     <Button variant="primary" onClick={onRevertButtonClicked} disabled={timer}>Revert</Button>
+                     <Button variant="primary" onClick={onSaveButtonClicked} disabled={timer}>Save</Button>
+                     <Button variant="primary" onClick={onCancelRecordClicked} disabled={timer}>Cancel</Button>
+
+                     <OnSaveModal
+                         show={modalShow}
+                         onEscapeKeyDown={() => setModalShow(false)}
+                         onHide={(buttonType, name, description) => modalButtonClicked(buttonType, name, description)}
+                     />
+                 </>
+                 : null}
             </div>
         </>
     )
