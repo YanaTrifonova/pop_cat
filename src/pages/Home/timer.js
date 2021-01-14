@@ -29,10 +29,10 @@ export default function Timer(props) {
     }, [isActive, counter])
 
     return(
-        <div className="timer">
-            <span className="minute">{minute}</span>
+        <div>
+            <span>{minute}</span>
             <span>:</span>
-            <span className="second">{second}</span>
+            <span>{second}</span>
         </div>
     );
 }
