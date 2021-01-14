@@ -1,5 +1,6 @@
 import {Button, Col, Jumbotron, Nav, Row, Tab, Tabs} from "react-bootstrap";
 import React, {useCallback, useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
 
 import "./index.css";
 
@@ -31,8 +32,12 @@ import {play} from "../../components/Instrument/play";
 import {closeCatMouth} from "../../components/Instrument/closeCatMouth";
 import Timer from "./timer";
 import OnSaveModal from "./modal";
+import {clearRecord, preSaveToLocalStorage, recordPreSaver} from "../../store/record/actions";
+import {unPlay} from "../../components/Instrument/unPlay";
 
 export default function Home() {
+    const dispatch = useDispatch();
+
     const [defaultNotes, setDefaultNotes] = useState([]);
     const [piano2Notes, setPiano2Notes] = useState([]);
     const [piano3Notes, setPiano3Notes] = useState([]);
@@ -55,6 +60,7 @@ export default function Home() {
     const [openRecordPanel, setOpenRecordPanel] = useState(false);
     const [disableOnStop, setDisableOnStop] = useState(false);
     const [timer, setTimer] = useState(false);
+    const [record, setRecord] = useState(false);
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -72,42 +78,70 @@ export default function Home() {
                 case "1" :
                 case "c" : {
                     play(audioType[0], catElement);
+                    if (record) {
+                        dispatch(recordPreSaver(audioType[0].id, Date.now()));
+                    }
+
                     setKeyPressedEvent("c");
                     break;
                 }
                 case "2" :
                 case "d" : {
                     play(audioType[1], catElement);
+                    if (record) {
+                        dispatch(recordPreSaver(audioType[1].id, Date.now()));
+                    }
+
                     setKeyPressedEvent("d");
                     break;
                 }
                 case "3" :
                 case "e" : {
                     play(audioType[2], catElement);
+                    if (record) {
+                        dispatch(recordPreSaver(audioType[2].id, Date.now()));
+                    }
+
                     setKeyPressedEvent("e");
                     break;
                 }
                 case "4" :
                 case "f" : {
                     play(audioType[3], catElement);
+                    if (record) {
+                        dispatch(recordPreSaver(audioType[3].id, Date.now()));
+                    }
+
                     setKeyPressedEvent("f");
                     break;
                 }
                 case "5" :
                 case "g" : {
                     play(audioType[4], catElement);
+                    if (record) {
+                        dispatch(recordPreSaver(audioType[4].id, Date.now()));
+                    }
+
                     setKeyPressedEvent("g");
                     break;
                 }
                 case "6" :
                 case "a" : {
                     play(audioType[5], catElement);
+                    if (record) {
+                        dispatch(recordPreSaver(audioType[5].id, Date.now()));
+                    }
+
                     setKeyPressedEvent("a");
                     break;
                 }
                 case "7" :
                 case "b" : {
                     play(audioType[6], catElement);
+                    if (record) {
+                        dispatch(recordPreSaver(audioType[6].id, Date.now()));
+                    }
+
                     setKeyPressedEvent("b");
                     break;
                 }
@@ -115,7 +149,7 @@ export default function Home() {
                     return null;
             }
         }
-    }, [instrument, cat, defaultNotes.length]);
+    }, [instrument, cat, defaultNotes.length, record]);
 
     const keyUp = useCallback(_ => {
         closeCatMouth(document.getElementById(cat));
@@ -143,21 +177,29 @@ export default function Home() {
             document.removeEventListener("keypress", keyPressed, false);
             document.removeEventListener("keyup", keyUp, false);
         };
-    }, [keyUp, keyPressed, openRecordPanel]);
+    }, [keyUp, keyPressed]);
 
     function setInstrumentTabAction(k) {
-        //close record panel when User picked new instrument
         if (k !== instrument) {
+            //close record panel when User picked new instrument
             setOpenRecordPanel(false);
+
+            setDisableOnStop(false);
+
+            dispatch(clearRecord());
         }
 
         setInstrument(k);
     }
 
     function setCatOnSelect(k) {
-        //close record panel when User picked new cat
         if (k !== cat) {
+            //close record panel when User picked new cat
             setOpenRecordPanel(false);
+
+            setDisableOnStop(false);
+
+            dispatch(clearRecord());
         }
 
         switch (k) {
@@ -199,7 +241,7 @@ export default function Home() {
 
         setOpenRecordPanel(true);
         setTimer(true);
-
+        setRecord(true);
     }
 
     function onStopRecordClicked() {
@@ -207,6 +249,10 @@ export default function Home() {
 
         setTimer(false);
         setDisableOnStop(true);
+        setRecord(false);
+
+        // save song that recorded to local storage
+        dispatch(preSaveToLocalStorage());
     }
 
     function onCancelRecordClicked() {
@@ -226,10 +272,21 @@ export default function Home() {
 
     function onListenButtonClicked() {
         _logsForRecords("LISTEN");
-    }
 
-    function onRevertButtonClicked() {
-        _logsForRecords("REVERT");
+        const catElement = document.getElementById(cat);
+        const song = JSON.parse(window.localStorage.getItem("song"));
+
+        song.forEach((item) => {
+            setTimeout(()=> {
+                let note = document.getElementById(item.note);
+                play(note, catElement);
+
+                setTimeout(()=> {
+                    unPlay(catElement);
+                }, 100);
+
+            }, item.time);
+        })
     }
 
     function _logsForRecords(functionName) {
@@ -239,6 +296,7 @@ export default function Home() {
             disableOnStop = ${disableOnStop}
             timer = ${timer}
             modalShow = ${modalShow}
+            record = ${record}
         `);
     }
 
@@ -337,37 +395,37 @@ export default function Home() {
                 onSelect={(k) => setInstrumentTabAction(k)}
                 activeKey={instrument}>
                 <Tab eventKey="home" title="default-piano">
-                    <Instrument cat={cat} notes={defaultNotes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={defaultNotes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="piano-2" title="piano-2">
-                    <Instrument cat={cat} notes={piano2Notes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={piano2Notes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="piano-3" title="piano-3">
-                    <Instrument cat={cat} notes={piano3Notes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={piano3Notes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="piano-4" title="piano-4">
-                    <Instrument cat={cat} notes={piano4Notes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={piano4Notes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="bass-drum" title="Bass Drum">
-                    <Instrument cat={cat} notes={bassDrumsNotes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={bassDrumsNotes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="sad-violin" title="Sad Violin">
-                    <Instrument cat={cat} notes={sadViolinNotes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={sadViolinNotes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="dun-dun-dun" title="Dun Dun Dun">
-                    <Instrument cat={cat} notes={dunDunDunNotes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={dunDunDunNotes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="electric-saw" title="Electric Saw">
-                    <Instrument cat={cat} notes={electricSawNotes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={electricSawNotes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="heart-bit" title="Heart Bit">
-                    <Instrument cat={cat} notes={heartBitNotes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={heartBitNotes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="cows" title="Cow">
-                    <Instrument cat={cat} notes={cowsNotes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={cowsNotes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
                 <Tab eventKey="pig" title="Pig">
-                    <Instrument cat={cat} notes={pigNotes} keyEvent={keyPressedEvent}/>
+                    <Instrument cat={cat} notes={pigNotes} keyEvent={keyPressedEvent} isRecord={record}/>
                 </Tab>
             </Tabs>
 
@@ -378,7 +436,6 @@ export default function Home() {
                      <Button variant="primary" disabled={disableOnStop} onClick={onStopRecordClicked}>Stop</Button>
                      <Timer isActive={timer}/>
                      <Button variant="primary" onClick={onListenButtonClicked} disabled={timer}>Listen</Button>
-                     <Button variant="primary" onClick={onRevertButtonClicked} disabled={timer}>Revert</Button>
                      <Button variant="primary" onClick={onSaveButtonClicked} disabled={timer}>Save</Button>
                      <Button variant="primary" onClick={onCancelRecordClicked} disabled={timer}>Cancel</Button>
 

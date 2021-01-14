@@ -1,15 +1,20 @@
 import {Button} from "react-bootstrap";
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
 import {defaultNotes} from "./export";
 import {play} from "./play";
 import {unPlay} from "./unPlay";
+import {recordPreSaver} from "../../store/record/actions";
 
 import "./index.css";
 
 export default function Instrument(props) {
+    const dispatch = useDispatch();
+
     const notes = props.notes;
     const cat = document.getElementById(props.cat);
     const keyEvent = props.keyEvent;
+    const isRecord = props.isRecord;
 
     const [clickedButtonId, setClickedButtonId] = useState(null);
 
@@ -30,7 +35,11 @@ export default function Instrument(props) {
                             className="button-key"
                             onMouseDown={() => {
                                 play(note, cat);
-                                clicked(defaultNotes[index])
+
+                                if (isRecord) {
+                                    dispatch(recordPreSaver(note.id, Date.now()));
+                                }
+                                clicked(defaultNotes[index]);
                             }}
                             onMouseUp={() => {
                                 unPlay(cat);
