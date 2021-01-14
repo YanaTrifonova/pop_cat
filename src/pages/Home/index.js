@@ -289,6 +289,28 @@ export default function Home() {
         })
     }
 
+    function modalButtonClicked(buttonType, name, description) {
+        _logsForModal(buttonType);
+
+        if (buttonType === 'cancel') {
+            setModalShow(false);
+            setOpenRecordPanel(false);
+            setDisableOnStop(false);
+
+            dispatch(clearRecord());
+        }
+
+        if (buttonType === 'save') {
+            _logsForRecords("SAVE");
+            setModalShow(false);
+            setOpenRecordPanel(false);
+            setDisableOnStop(false);
+
+            console.log("song name", name);
+            console.log("song description", description);
+        }
+    }
+
     function _logsForRecords(functionName) {
         console.log(functionName, new Date());
         console.log(`
@@ -302,26 +324,6 @@ export default function Home() {
 
     function _logsForModal(buttonType) {
         console.log(buttonType, new Date());
-    }
-
-    function modalButtonClicked(buttonType, name, description) {
-        _logsForModal(buttonType);
-
-        if (buttonType === 'cancel') {
-            setModalShow(false);
-            setOpenRecordPanel(false);
-            setDisableOnStop(false);
-        }
-
-        if (buttonType === 'save') {
-            _logsForRecords("SAVE");
-            setModalShow(false);
-            setOpenRecordPanel(false);
-            setDisableOnStop(false);
-
-            console.log("song name", name);
-            console.log("song description", description);
-        }
     }
 
     return (
