@@ -11,7 +11,7 @@ import "./index.css";
 export default function Instrument(props) {
     const dispatch = useDispatch();
 
-    const notes = props.notes;
+    const instrument = props.instrument;
     const cat = document.getElementById(props.cat);
     const keyEvent = props.keyEvent;
     const isRecord = props.isRecord;
@@ -28,16 +28,17 @@ export default function Instrument(props) {
 
     return (
         <div className="instrument">
-            {notes.map((note, index) => {
+            {instrument?.notes.map((note, index) => {
                 return (
                     <Button key={index}
                             id={defaultNotes[index]}
                             className="button-key"
                             onMouseDown={() => {
-                                play(note, cat);
+                                const noteId = instrument.name + "Note" + index;
+                                play(noteId, cat);
 
                                 if (isRecord) {
-                                    dispatch(recordPreSaver(note.id, Date.now()));
+                                    dispatch(recordPreSaver(noteId, Date.now()));
                                 }
                                 clicked(defaultNotes[index]);
                             }}
