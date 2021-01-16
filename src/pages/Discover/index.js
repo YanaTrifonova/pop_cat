@@ -1,6 +1,5 @@
 import {Button, Card, Jumbotron} from "react-bootstrap";
 import React from "react";
-import cat from '../../images/default/cat_default_close_mouth.jpg'
 
 export default function Discover() {
 
@@ -10,7 +9,7 @@ export default function Discover() {
             <h1>Discover songs</h1>
         </Jumbotron>
             <Card style={{ width: '18rem', margin: "20px" }}>
-                <Card.Img variant="top" src={cat} />
+                <Card.Img variant="top" src={"https://static.toiimg.com/photo/msid-67586673/67586673.jpg?3918697"} />
                 <Card.Body>
                     <Card.Title>My first song</Card.Title>
                     <Card.Text>
