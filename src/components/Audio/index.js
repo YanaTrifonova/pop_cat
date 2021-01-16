@@ -1,16 +1,14 @@
 import React from "react";
-import {audioSwitcher} from "./audioSwitcher";
+import {apiUrl} from "../../config/constants";
 
 export default function Audio(props) {
-    const ids = props.id;
-    const type = props.type;
-    const audios = audioSwitcher(type);
+    const instrument = props.instrument;
 
     return (
-        ids.map((id, index) => {
+        instrument.notes.map((note, index) => {
             return (
-                <audio id={id} key={index}>
-                    <source src={audios[index]} type="audio/mpeg"/>
+                <audio id={instrument.name + "Note" + index} key={index}>
+                    <source src={apiUrl + note} type="audio/mpeg"/>
                 </audio>
             )
         })
