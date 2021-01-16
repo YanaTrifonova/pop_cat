@@ -3,8 +3,6 @@ import {ADD_NOTE, CLEAR_STATE, PRE_SAVE_RECORD} from "./actions";
 const initialState = [];
 
 export default (state = initialState, action) => {
-    localStorage.setItem("song", null);
-
     switch (action.type) {
         case ADD_NOTE:
             return [...state, action.payload];
@@ -31,14 +29,14 @@ export default (state = initialState, action) => {
             }
 
             console.log("PRE_SAVE_RECORD", newState);
-            localStorage.setItem("song", JSON.stringify(newState))
+            window.localStorage.setItem("song", JSON.stringify(newState));
+
             return newState;
 
         case CLEAR_STATE :
+            window.localStorage.removeItem("song");
             return action.payload;
         default:
             return state;
     }
 };
-
-//localStorage.setItem("song", JSON.stringify(newState))
