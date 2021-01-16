@@ -1,59 +1,30 @@
 import {Button, Col, Jumbotron, Nav, Row, Tab, Tabs} from "react-bootstrap";
 import React, {useCallback, useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import "./index.css";
 
-import catWithCloseMouth from "../../images/default/cat_default_close_mouth.jpg";
-import pixelCatWithCloseMouth from "../../images/pixel/cat_pixel_close_mouth.jpg";
-import pirateCatWithCloseMouth from "../../images/pirate/cat_pirate_close_mouth.png";
-import winterCatWithCloseMouth from "../../images/winter/cat_winter_close_mouth.png";
-import bwCatWithCloseMouth from "../../images/b&w/cat_bw_close_mouth.png";
-
 import Audio from "../../components/Audio";
 import Instrument from "../../components/Instrument";
-
-import {setElementsToArrayById} from "./helpers";
-import {audioSwitcher} from "./audioSwitcher";
-import {
-    bassDrumsId,
-    cowsId,
-    defaultPianoId,
-    dunDunDunId,
-    electricSawId,
-    heartBitId,
-    piano2Id,
-    piano3Id,
-    piano4Id,
-    pigId,
-    sadViolinId,
-} from "./export";
 import {play} from "../../components/Instrument/play";
 import {closeCatMouth} from "../../components/Instrument/closeCatMouth";
 import Timer from "./timer";
 import OnSaveModal from "./modal";
-import {clearRecord, preSaveToLocalStorage, recordPreSaver} from "../../store/record/actions";
+import {clearRecordInLocalStorage, preSaveToLocalStorage, recordPreSaver, saveRecord} from "../../store/record/actions";
 import {unPlay} from "../../components/Instrument/unPlay";
+import {selectToken} from "../../store/user/selector";
+import {apiUrl} from "../../config/constants";
+import {preLoadCats, preLoadInstruments} from "../../store/preLoadMedia/actions";
 
 export default function Home() {
     const dispatch = useDispatch();
+    const token = useSelector(selectToken);
 
-    const [defaultNotes, setDefaultNotes] = useState([]);
-    const [piano2Notes, setPiano2Notes] = useState([]);
-    const [piano3Notes, setPiano3Notes] = useState([]);
-    const [piano4Notes, setPiano4Notes] = useState([]);
-    const [bassDrumsNotes, setBassDrumsNotes] = useState([]);
-    const [sadViolinNotes, setSadViolinId] = useState([]);
-    const [dunDunDunNotes, setDunDunDunNotes] = useState([]);
-    const [electricSawNotes, setElectricSawId] = useState([]);
-    const [heartBitNotes, setHeartBitNotes] = useState([]);
-    const [cowsNotes, setCowsNotes] = useState([]);
-    const [pigNotes, setPigNotes] = useState([]);
-
-    const [catImg, catImgSetter] = useState(catWithCloseMouth);
+    const [mediaCats, setMediaCats] = useState(null);
+    const [mediaInstruments, setMediaInstruments] = useState(null);
 
     const [cat, setCat] = useState('catDefault');
-    const [instrument, setInstrument] = useState('home');
+    const [instrument, setInstrument] = useState('defaultPianoAudios');
 
     const [keyPressedEvent, setKeyPressedEvent] = useState(null);
 
@@ -65,91 +36,106 @@ export default function Home() {
     const [modalShow, setModalShow] = useState(false);
 
     const keyPressed = useCallback(event => {
-        if (defaultNotes.length !== 0) {
-            const eventKey = event.key.toLowerCase();
+        const eventKey = event.key.toLowerCase();
+        const catElement = document.getElementById(cat);
 
-            const audioType = audioSwitcher(
-                instrument, defaultNotes, piano2Notes, piano3Notes, piano4Notes, bassDrumsNotes, sadViolinNotes,
-                dunDunDunNotes, electricSawNotes, heartBitNotes, cowsNotes, pigNotes
-            );
+        switch (eventKey) {
+            case "1" :
+            case "c" : {
+                const noteId = instrument + "Note" + 0;
 
-            const catElement = document.getElementById(cat);
-            switch (eventKey) {
-                case "1" :
-                case "c" : {
-                    play(audioType[0], catElement);
-                    if (record) {
-                        dispatch(recordPreSaver(audioType[0].id, Date.now()));
-                    }
+                play(noteId, catElement);
 
-                    setKeyPressedEvent("c");
-                    break;
+                if (record) {
+                    dispatch(recordPreSaver(noteId, Date.now()));
                 }
-                case "2" :
-                case "d" : {
-                    play(audioType[1], catElement);
-                    if (record) {
-                        dispatch(recordPreSaver(audioType[1].id, Date.now()));
-                    }
 
-                    setKeyPressedEvent("d");
-                    break;
-                }
-                case "3" :
-                case "e" : {
-                    play(audioType[2], catElement);
-                    if (record) {
-                        dispatch(recordPreSaver(audioType[2].id, Date.now()));
-                    }
-
-                    setKeyPressedEvent("e");
-                    break;
-                }
-                case "4" :
-                case "f" : {
-                    play(audioType[3], catElement);
-                    if (record) {
-                        dispatch(recordPreSaver(audioType[3].id, Date.now()));
-                    }
-
-                    setKeyPressedEvent("f");
-                    break;
-                }
-                case "5" :
-                case "g" : {
-                    play(audioType[4], catElement);
-                    if (record) {
-                        dispatch(recordPreSaver(audioType[4].id, Date.now()));
-                    }
-
-                    setKeyPressedEvent("g");
-                    break;
-                }
-                case "6" :
-                case "a" : {
-                    play(audioType[5], catElement);
-                    if (record) {
-                        dispatch(recordPreSaver(audioType[5].id, Date.now()));
-                    }
-
-                    setKeyPressedEvent("a");
-                    break;
-                }
-                case "7" :
-                case "b" : {
-                    play(audioType[6], catElement);
-                    if (record) {
-                        dispatch(recordPreSaver(audioType[6].id, Date.now()));
-                    }
-
-                    setKeyPressedEvent("b");
-                    break;
-                }
-                default :
-                    return null;
+                setKeyPressedEvent("c");
+                break;
             }
+            case "2" :
+            case "d" : {
+                const noteId = instrument + "Note" + 1;
+
+                play(noteId, catElement);
+
+                if (record) {
+                    dispatch(recordPreSaver(noteId, Date.now()));
+                }
+
+                setKeyPressedEvent("d");
+                break;
+            }
+            case "3" :
+            case "e" : {
+                const noteId = instrument + "Note" + 2;
+
+                play(noteId, catElement);
+
+                if (record) {
+                    dispatch(recordPreSaver(noteId, Date.now()));
+                }
+
+                setKeyPressedEvent("e");
+                break;
+            }
+            case "4" :
+            case "f" : {
+                const noteId = instrument + "Note" + 3;
+
+                play(noteId, catElement);
+
+                if (record) {
+                    dispatch(recordPreSaver(noteId, Date.now()));
+                }
+
+                setKeyPressedEvent("f");
+                break;
+            }
+            case "5" :
+            case "g" : {
+                const noteId = instrument + "Note" + 4;
+
+                play(noteId, catElement);
+
+                if (record) {
+                    dispatch(recordPreSaver(noteId, Date.now()));
+                }
+
+                setKeyPressedEvent("g");
+                break;
+            }
+            case "6" :
+            case "a" : {
+                const noteId = instrument + "Note" + 5;
+
+                play(noteId, catElement);
+
+                if (record) {
+                    dispatch(recordPreSaver(noteId, Date.now()));
+                }
+
+                setKeyPressedEvent("a");
+                break;
+            }
+            case "7" :
+            case "b" : {
+                const noteId = instrument + "Note" + 6;
+
+                play(noteId, catElement);
+
+                if (record) {
+                    dispatch(recordPreSaver(noteId, Date.now()));
+                }
+
+                setKeyPressedEvent("b");
+                break;
+            }
+            default :
+                return null;
         }
-    }, [instrument, cat, defaultNotes.length, record]);
+
+    }, [instrument, cat, record]);
 
     const keyUp = useCallback(_ => {
         closeCatMouth(document.getElementById(cat));
@@ -158,17 +144,12 @@ export default function Home() {
 
     useEffect(() => {
         console.log("RENDER");
-        setDefaultNotes(setElementsToArrayById(defaultPianoId));
-        setPiano2Notes(setElementsToArrayById(piano2Id));
-        setPiano3Notes(setElementsToArrayById(piano3Id));
-        setPiano4Notes(setElementsToArrayById(piano4Id));
-        setBassDrumsNotes(setElementsToArrayById(bassDrumsId));
-        setSadViolinId(setElementsToArrayById(sadViolinId));
-        setDunDunDunNotes(setElementsToArrayById(dunDunDunId));
-        setElectricSawId(setElementsToArrayById(electricSawId));
-        setHeartBitNotes(setElementsToArrayById(heartBitId));
-        setCowsNotes(setElementsToArrayById(cowsId));
-        setPigNotes(setElementsToArrayById(pigId));
+
+        dispatch(preLoadCats())
+            .then(() => setMediaCats(JSON.parse(window.localStorage.getItem("cats"))))
+
+        dispatch(preLoadInstruments())
+            .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
 
         document.addEventListener("keypress", keyPressed, false);
         document.addEventListener("keyup", keyUp, false);
@@ -177,67 +158,37 @@ export default function Home() {
             document.removeEventListener("keypress", keyPressed, false);
             document.removeEventListener("keyup", keyUp, false);
         };
-    }, [keyUp, keyPressed]);
+    }, [keyUp, keyPressed, dispatch, mediaCats?.length, mediaInstruments?.length]);
 
     function setInstrumentTabAction(k) {
         if (k !== instrument) {
-            //close record panel when User picked new instrument
+            // set instrument that have chosen by user
+            setInstrument(k);
+            // close record panel when User picked new instrument
             setOpenRecordPanel(false);
-
+            // revert changes of disables
             setDisableOnStop(false);
-
-            dispatch(clearRecord());
+            // clear song values in local storage
+            dispatch(clearRecordInLocalStorage());
         }
-
-        setInstrument(k);
     }
 
     function setCatOnSelect(k) {
         if (k !== cat) {
-            //close record panel when User picked new cat
+            // set cat that have chosen by user
+            setCat(k);
+            // close record panel when User picked new cat
             setOpenRecordPanel(false);
-
+            // revert changes of disables
             setDisableOnStop(false);
-
-            dispatch(clearRecord());
-        }
-
-        switch (k) {
-            case 'catDefault' : {
-                setCat('catDefault');
-                catImgSetter(catWithCloseMouth);
-                break;
-            }
-            case 'catPixel' : {
-                setCat('catPixel');
-                catImgSetter(pixelCatWithCloseMouth);
-                break;
-            }
-            case 'catPirate' : {
-                setCat('catPirate');
-                catImgSetter(pirateCatWithCloseMouth);
-                break;
-            }
-            case 'catWinter' : {
-                setCat('catWinter');
-                catImgSetter(winterCatWithCloseMouth);
-                break;
-            }
-            case 'catBW' : {
-                setCat('catBW');
-                catImgSetter(bwCatWithCloseMouth);
-                break;
-            }
-            default : {
-                setCat('catDefault');
-                catImgSetter(catWithCloseMouth);
-                break;
-            }
+            // clear song values in local storage
+            dispatch(clearRecordInLocalStorage());
         }
     }
 
     function onRecordClicked() {
         _logsForRecords("RECORD");
+        dispatch(clearRecordInLocalStorage());
 
         setOpenRecordPanel(true);
         setTimer(true);
@@ -277,11 +228,10 @@ export default function Home() {
         const song = JSON.parse(window.localStorage.getItem("song"));
 
         song.forEach((item) => {
-            setTimeout(()=> {
-                let note = document.getElementById(item.note);
-                play(note, catElement);
+            setTimeout(() => {
+                play(item.note, catElement);
 
-                setTimeout(()=> {
+                setTimeout(() => {
                     unPlay(catElement);
                 }, 100);
 
@@ -297,7 +247,7 @@ export default function Home() {
             setOpenRecordPanel(false);
             setDisableOnStop(false);
 
-            dispatch(clearRecord());
+            dispatch(clearRecordInLocalStorage());
         }
 
         if (buttonType === 'save') {
@@ -306,8 +256,9 @@ export default function Home() {
             setOpenRecordPanel(false);
             setDisableOnStop(false);
 
-            console.log("song name", name);
-            console.log("song description", description);
+            const song = JSON.parse(window.localStorage.getItem("song"));
+            dispatch(saveRecord(token, cat, instrument, song, name, description));
+            dispatch(clearRecordInLocalStorage());
         }
     }
 
@@ -328,127 +279,155 @@ export default function Home() {
 
     return (
         <>
-            <Audio id={defaultPianoId} type="default"/>
-            <Audio id={piano2Id} type="piano-2"/>
-            <Audio id={piano3Id} type="piano-3"/>
-            <Audio id={piano4Id} type="piano-4"/>
-            <Audio id={bassDrumsId} type="bass-drum"/>
-            <Audio id={sadViolinId} type="sad-violin"/>
-            <Audio id={dunDunDunId} type="dun-dun-dun"/>
-            <Audio id={electricSawId} type="electric-saw"/>
-            <Audio id={heartBitId} type="heart-bit"/>
-            <Audio id={cowsId} type="cows"/>
-            <Audio id={pigId} type="pig"/>
+            {mediaInstruments === null
+             ? <h1>Loading...</h1>
+             : <>
+                 <Audio instrument={mediaInstruments[0]} type="default"/>
+                 <Audio instrument={mediaInstruments[1]} type="piano-2"/>
+                 <Audio instrument={mediaInstruments[2]} type="piano-3"/>
+                 <Audio instrument={mediaInstruments[3]} type="piano-4"/>
+                 <Audio instrument={mediaInstruments[4]} type="bass-drum"/>
+                 <Audio instrument={mediaInstruments[5]} type="sad-violin"/>
+                 <Audio instrument={mediaInstruments[6]} type="dun-dun-dun"/>
+                 <Audio instrument={mediaInstruments[7]} type="electric-saw"/>
+                 <Audio instrument={mediaInstruments[8]} type="heart-bit"/>
+                 <Audio instrument={mediaInstruments[9]} type="cows"/>
+                 <Audio instrument={mediaInstruments[10]} type="pig"/>
 
-            <Jumbotron>
-                <h1>Cat:</h1>
-                <Tab.Container id="left-tabs-example"
-                               defaultActiveKey="first"
-                               onSelect={(k) => setCatOnSelect(k)}
-                               activeKey={cat}
-                >
-                    <Row>
-                        <Col sm={2}>
-                            <Nav variant="pills" className="flex-column">
-                                <Nav.Item>
-                                    <Nav.Link eventKey="catDefault">Default</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="catPixel">Pixel</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="catPirate">Pirate</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="catWinter">Winter</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="catBW">Black and White</Nav.Link>
-                                </Nav.Item>
-                            </Nav>
-                        </Col>
-                        <Col sm={3}>
-                            <Tab.Content>
-                                <Tab.Pane eventKey="catDefault">
-                                    <img id="catDefault" className="cat" src={catImg} alt="cat with close mouth"/>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="catPixel">
-                                    <img id="catPixel" className="cat" src={catImg} alt="cat with close mouth"/>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="catPirate">
-                                    <img id="catPirate" className="cat" src={catImg} alt="cat with close mouth"/>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="catWinter">
-                                    <img id="catWinter" className="cat" src={catImg} alt="cat with close mouth"/>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="catBW">
-                                    <img id="catBW" className="cat" src={catImg} alt="cat with close mouth"/>
-                                </Tab.Pane>
-                            </Tab.Content>
-                        </Col>
-                    </Row>
-                </Tab.Container>
-            </Jumbotron>
+                 {mediaCats === null
+                  ? <h1>Loading...</h1>
+                  : <Jumbotron>
+                      <h1>Cat:</h1>
+                      <Tab.Container id="left-tabs-example"
+                                     defaultActiveKey="first"
+                                     onSelect={(k) => setCatOnSelect(k)}
+                                     activeKey={cat}
+                      >
+                          <Row>
+                              <Col sm={2}>
+                                  <Nav variant="pills" className="flex-column">
+                                      <Nav.Item>
+                                          <Nav.Link eventKey="catDefault">Default</Nav.Link>
+                                      </Nav.Item>
+                                      <Nav.Item>
+                                          <Nav.Link eventKey="catPixel">Pixel</Nav.Link>
+                                      </Nav.Item>
+                                      <Nav.Item>
+                                          <Nav.Link eventKey="catPirate">Pirate</Nav.Link>
+                                      </Nav.Item>
+                                      <Nav.Item>
+                                          <Nav.Link eventKey="catWinter">Winter</Nav.Link>
+                                      </Nav.Item>
+                                      <Nav.Item>
+                                          <Nav.Link eventKey="catBW">Black and White</Nav.Link>
+                                      </Nav.Item>
+                                  </Nav>
+                              </Col>
+                              <Col sm={3}>
+                                  <Tab.Content>
+                                      <Tab.Pane eventKey="catDefault">
+                                          <img id="catDefault" className="cat"
+                                               src={apiUrl + mediaCats[0].url.closeMouth}
+                                               alt="cat with close mouth"/>
+                                      </Tab.Pane>
+                                      <Tab.Pane eventKey="catPixel">
+                                          <img id="catPixel" className="cat" src={apiUrl + mediaCats[1].url.closeMouth}
+                                               alt="cat with close mouth"/>
+                                      </Tab.Pane>
+                                      <Tab.Pane eventKey="catPirate">
+                                          <img id="catPirate" className="cat" src={apiUrl + mediaCats[2].url.closeMouth}
+                                               alt="cat with close mouth"/>
+                                      </Tab.Pane>
+                                      <Tab.Pane eventKey="catWinter">
+                                          <img id="catWinter" className="cat" src={apiUrl + mediaCats[3].url.closeMouth}
+                                               alt="cat with close mouth"/>
+                                      </Tab.Pane>
+                                      <Tab.Pane eventKey="catBW">
+                                          <img id="catBW" className="cat" src={apiUrl + mediaCats[4].url.closeMouth}
+                                               alt="cat with close mouth"/>
+                                      </Tab.Pane>
+                                  </Tab.Content>
+                              </Col>
+                          </Row>
 
-            <Tabs
-                id="controlled-tab"
-                className="instrument-tabs"
-                defaultActiveKey="home"
-                onSelect={(k) => setInstrumentTabAction(k)}
-                activeKey={instrument}>
-                <Tab eventKey="home" title="default-piano">
-                    <Instrument cat={cat} notes={defaultNotes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="piano-2" title="piano-2">
-                    <Instrument cat={cat} notes={piano2Notes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="piano-3" title="piano-3">
-                    <Instrument cat={cat} notes={piano3Notes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="piano-4" title="piano-4">
-                    <Instrument cat={cat} notes={piano4Notes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="bass-drum" title="Bass Drum">
-                    <Instrument cat={cat} notes={bassDrumsNotes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="sad-violin" title="Sad Violin">
-                    <Instrument cat={cat} notes={sadViolinNotes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="dun-dun-dun" title="Dun Dun Dun">
-                    <Instrument cat={cat} notes={dunDunDunNotes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="electric-saw" title="Electric Saw">
-                    <Instrument cat={cat} notes={electricSawNotes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="heart-bit" title="Heart Bit">
-                    <Instrument cat={cat} notes={heartBitNotes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="cows" title="Cow">
-                    <Instrument cat={cat} notes={cowsNotes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-                <Tab eventKey="pig" title="Pig">
-                    <Instrument cat={cat} notes={pigNotes} keyEvent={keyPressedEvent} isRecord={record}/>
-                </Tab>
-            </Tabs>
+                      </Tab.Container>
+                  </Jumbotron>
+                 }
 
-            <div className="button-record">
-                <Button variant="danger" disabled={disableOnStop} onClick={onRecordClicked}>Record</Button>
-                {openRecordPanel
-                 ? <>
-                     <Button variant="primary" disabled={disableOnStop} onClick={onStopRecordClicked}>Stop</Button>
-                     <Timer isActive={timer}/>
-                     <Button variant="primary" onClick={onListenButtonClicked} disabled={timer}>Listen</Button>
-                     <Button variant="primary" onClick={onSaveButtonClicked} disabled={timer}>Save</Button>
-                     <Button variant="primary" onClick={onCancelRecordClicked} disabled={timer}>Cancel</Button>
 
-                     <OnSaveModal
-                         show={modalShow}
-                         onEscapeKeyDown={() => setModalShow(false)}
-                         onHide={(buttonType, name, description) => modalButtonClicked(buttonType, name, description)}
-                     />
-                 </>
-                 : null}
-            </div>
+                 <Tabs
+                     id="controlled-tab"
+                     className="instrument-tabs"
+                     defaultActiveKey="defaultPianoAudios"
+                     onSelect={(k) => setInstrumentTabAction(k)}
+                     activeKey={instrument}>
+                     <Tab eventKey="defaultPianoAudios" title="default-piano">
+                         <Instrument cat={cat} instrument={mediaInstruments[0]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="piano2" title="piano-2">
+                         <Instrument cat={cat} instrument={mediaInstruments[1]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="piano3" title="piano-3">
+                         <Instrument cat={cat} instrument={mediaInstruments[2]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="piano4" title="piano-4">
+                         <Instrument cat={cat} instrument={mediaInstruments[3]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="bassDrum" title="Bass Drum">
+                         <Instrument cat={cat} instrument={mediaInstruments[4]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="sadViolin" title="Sad Violin">
+                         <Instrument cat={cat} instrument={mediaInstruments[5]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="dunDunDun" title="Dun Dun Dun">
+                         <Instrument cat={cat} instrument={mediaInstruments[6]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="electricSaw" title="Electric Saw">
+                         <Instrument cat={cat} instrument={mediaInstruments[7]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="heartBit" title="Heart Bit">
+                         <Instrument cat={cat} instrument={mediaInstruments[8]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="cow" title="Cow">
+                         <Instrument cat={cat} instrument={mediaInstruments[9]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                     <Tab eventKey="pig" title="Pig">
+                         <Instrument cat={cat} instrument={mediaInstruments[10]} keyEvent={keyPressedEvent}
+                                     isRecord={record}/>
+                     </Tab>
+                 </Tabs>
+
+                 <div className="button-record">
+                     <Button variant="danger" disabled={disableOnStop} onClick={onRecordClicked}>Record</Button>
+                     {openRecordPanel
+                      ? <>
+                          <Button variant="primary" disabled={disableOnStop} onClick={onStopRecordClicked}>Stop</Button>
+                          <Timer isActive={timer}/>
+                          <Button variant="primary" onClick={onListenButtonClicked} disabled={timer}>Listen</Button>
+                          <Button variant="primary" onClick={onSaveButtonClicked} disabled={timer}>Save</Button>
+                          <Button variant="primary" onClick={onCancelRecordClicked} disabled={timer}>Cancel</Button>
+
+                          <OnSaveModal
+                              show={modalShow}
+                              onEscapeKeyDown={() => setModalShow(false)}
+                              onHide={(buttonType, name, description) => modalButtonClicked(
+                                  buttonType, name, description)}
+                          />
+                      </>
+                      : null}
+                 </div>
+             </>
+            }
         </>
     )
 }
