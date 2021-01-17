@@ -1,5 +1,5 @@
 import {mouthToggle} from "./mouthToggle";
 
-export function closeCatMouth(cat) {
-    mouthToggle(cat, false);
+export function closeCatMouth(cat, index) {
+    mouthToggle(cat, false, index);
 }

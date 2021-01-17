@@ -1,5 +1,5 @@
 import {closeCatMouth} from "./closeCatMouth";
 
-export function unPlay(cat) {
-    closeCatMouth(cat);
+export function unPlay(cat, index) {
+    closeCatMouth(cat, index);
 }

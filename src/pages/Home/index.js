@@ -44,7 +44,7 @@ export default function Home() {
             case "c" : {
                 const noteId = instrument + "Note" + 0;
 
-                play(noteId, catElement);
+                play(noteId, catElement, -1);
 
                 if (record) {
                     dispatch(recordPreSaver(noteId, Date.now()));
@@ -57,7 +57,7 @@ export default function Home() {
             case "d" : {
                 const noteId = instrument + "Note" + 1;
 
-                play(noteId, catElement);
+                play(noteId, catElement, -1);
 
                 if (record) {
                     dispatch(recordPreSaver(noteId, Date.now()));
@@ -70,7 +70,7 @@ export default function Home() {
             case "e" : {
                 const noteId = instrument + "Note" + 2;
 
-                play(noteId, catElement);
+                play(noteId, catElement, -1);
 
                 if (record) {
                     dispatch(recordPreSaver(noteId, Date.now()));
@@ -83,7 +83,7 @@ export default function Home() {
             case "f" : {
                 const noteId = instrument + "Note" + 3;
 
-                play(noteId, catElement);
+                play(noteId, catElement, -1);
 
                 if (record) {
                     dispatch(recordPreSaver(noteId, Date.now()));
@@ -96,7 +96,7 @@ export default function Home() {
             case "g" : {
                 const noteId = instrument + "Note" + 4;
 
-                play(noteId, catElement);
+                play(noteId, catElement, -1);
 
                 if (record) {
                     dispatch(recordPreSaver(noteId, Date.now()));
@@ -109,7 +109,7 @@ export default function Home() {
             case "a" : {
                 const noteId = instrument + "Note" + 5;
 
-                play(noteId, catElement);
+                play(noteId, catElement, -1);
 
                 if (record) {
                     dispatch(recordPreSaver(noteId, Date.now()));
@@ -122,7 +122,7 @@ export default function Home() {
             case "b" : {
                 const noteId = instrument + "Note" + 6;
 
-                play(noteId, catElement);
+                play(noteId, catElement, -1);
 
                 if (record) {
                     dispatch(recordPreSaver(noteId, Date.now()));
@@ -138,7 +138,7 @@ export default function Home() {
     }, [instrument, cat, record]);
 
     const keyUp = useCallback(_ => {
-        closeCatMouth(document.getElementById(cat));
+        closeCatMouth(document.getElementById(cat), -1);
         setKeyPressedEvent(null);
     }, [cat]);
 
@@ -228,12 +228,16 @@ export default function Home() {
         const song = JSON.parse(window.localStorage.getItem("song"));
 
         song.forEach((item) => {
+            let catOpenMouthTimeout = (item.note.includes("sadViolin") || item.note.includes("dunDunDun")
+                                       || item.note.includes("electricSaw") || item.note.includes("pig")
+                                       || item.note.includes("pig")) ? 400 : 100;
+
             setTimeout(() => {
-                play(item.note, catElement);
+                play(item.note, catElement, -1);
 
                 setTimeout(() => {
-                    unPlay(catElement);
-                }, 100);
+                    unPlay(catElement, -1);
+                }, catOpenMouthTimeout);
 
             }, item.time);
         })

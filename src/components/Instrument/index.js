@@ -35,7 +35,7 @@ export default function Instrument(props) {
                             className="button-key"
                             onMouseDown={() => {
                                 const noteId = instrument.name + "Note" + index;
-                                play(noteId, cat);
+                                play(noteId, cat, -1);
 
                                 if (isRecord) {
                                     dispatch(recordPreSaver(noteId, Date.now()));
@@ -43,7 +43,7 @@ export default function Instrument(props) {
                                 clicked(defaultNotes[index]);
                             }}
                             onMouseUp={() => {
-                                unPlay(cat);
+                                unPlay(cat, -1);
                                 unClicked();
                             }}
                             variant={clickedButtonId === defaultNotes[index] || keyEvent === defaultNotes[index] ? 'danger' : "primary"}>
