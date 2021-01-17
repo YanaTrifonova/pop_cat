@@ -1,30 +1,55 @@
-import {Button, Card, Jumbotron} from "react-bootstrap";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {Jumbotron} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {getData} from "../../store/posts/action";
+import {getAllPosts} from "../../store/posts/selector";
+import Post from "../../components/Post";
+import Audio from "../../components/Audio";
+import {preLoadCats, preLoadInstruments} from "../../store/preLoadMedia/actions";
 
 export default function Discover() {
+    const dispatch = useDispatch();
+    const posts = useSelector(getAllPosts);
 
-    return(
+    const [mediaCats, setMediaCats] = useState(null);
+    const [mediaInstruments, setMediaInstruments] = useState(null);
+
+    useEffect(() => {
+        dispatch(getData());
+
+        dispatch(preLoadCats())
+            .then(() => setMediaCats(JSON.parse(window.localStorage.getItem("cats"))))
+
+        dispatch(preLoadInstruments())
+            .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
+
+    }, [dispatch, posts.length]);
+
+    return (
         <>
+            {mediaInstruments === null
+             ? <h1>Loading...</h1>
+             : <>
+                 <Audio instrument={mediaInstruments[0]} type="default"/>
+                 <Audio instrument={mediaInstruments[1]} type="piano-2"/>
+                 <Audio instrument={mediaInstruments[2]} type="piano-3"/>
+                 <Audio instrument={mediaInstruments[3]} type="piano-4"/>
+                 <Audio instrument={mediaInstruments[4]} type="bass-drum"/>
+                 <Audio instrument={mediaInstruments[5]} type="sad-violin"/>
+                 <Audio instrument={mediaInstruments[6]} type="dun-dun-dun"/>
+                 <Audio instrument={mediaInstruments[7]} type="electric-saw"/>
+                 <Audio instrument={mediaInstruments[8]} type="heart-bit"/>
+                 <Audio instrument={mediaInstruments[9]} type="cows"/>
+                 <Audio instrument={mediaInstruments[10]} type="pig"/>
+             </>}
+
             <Jumbotron>
-            <h1>Discover songs</h1>
-        </Jumbotron>
-            <Card style={{ width: '18rem', margin: "20px" }}>
-                <Card.Img variant="top" src={"https://static.toiimg.com/photo/msid-67586673/67586673.jpg?3918697"} />
-                <Card.Body>
-                    <Card.Title>My first song</Card.Title>
-                    <Card.Text>
-                        I created my first song. Feel free to listen to it!
-                    </Card.Text>
-                    <Card.Body>
-                        <Button variant="primary" style={{ marginRight: "5px" }}>Play</Button>
-                        <Button variant="primary">Stop</Button>
-                    </Card.Body>
-                    <Card.Body>
-                        <Button variant="primary" style={{ marginRight: "5px" }}>Like</Button>
-                        <Button variant="primary">Favorites</Button>
-                    </Card.Body>
-                </Card.Body>
-            </Card>
+                <h1>Discover songs</h1>
+            </Jumbotron>
+
+            {posts?.length === 0
+             ? <h1>Loading..</h1>
+             : <Post data={posts}/>}
         </>
     )
 }
