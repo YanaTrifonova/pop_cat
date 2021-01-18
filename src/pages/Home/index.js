@@ -15,10 +15,12 @@ import {unPlay} from "../../components/Instrument/unPlay";
 import {selectToken} from "../../store/user/selector";
 import {apiUrl} from "../../config/constants";
 import {preLoadCats, preLoadInstruments} from "../../store/preLoadMedia/actions";
+import {isNotePlayedSelector} from "../../store/record/selector";
 
 export default function Home() {
     const dispatch = useDispatch();
     const token = useSelector(selectToken);
+    const isNotePlayed = useSelector(isNotePlayedSelector);
 
     const [mediaCats, setMediaCats] = useState(null);
     const [mediaInstruments, setMediaInstruments] = useState(null);
@@ -28,9 +30,16 @@ export default function Home() {
 
     const [keyPressedEvent, setKeyPressedEvent] = useState(null);
 
+    // when user click RECORD button - open panel with STOP, LISTEN, SAVE and CANCEL buttons
     const [openRecordPanel, setOpenRecordPanel] = useState(false);
+    // when user click STOP button - disable RECORD and STOP buttons
     const [disableOnStop, setDisableOnStop] = useState(false);
+    // when user click RECORD button - start timer and disable LISTEN, SAVE and CANCEL buttons
     const [timer, setTimer] = useState(false);
+    // if during recording user did not played any notes disable LISTEN and SAVE buttons
+    const [isRecordedMusicPlayed, setIsRecordedMusicPlayed] = useState(true);
+
+    // flag when user start recorded their song
     const [record, setRecord] = useState(false);
 
     const [modalShow, setModalShow] = useState(false);
@@ -202,8 +211,15 @@ export default function Home() {
         setDisableOnStop(true);
         setRecord(false);
 
-        // save song that recorded to local storage
-        dispatch(preSaveToLocalStorage());
+        // if user played any notes during recorder. At every note played ADD_NOTE updated state with new song item
+        // otherwise record state is empty
+        if (isNotePlayed) {
+            // save song that recorded to local storage
+            dispatch(preSaveToLocalStorage());
+        } else {
+            console.log("NO SOUNDS RECORDER");
+            setIsRecordedMusicPlayed(false);
+        }
     }
 
     function onCancelRecordClicked() {
@@ -417,8 +433,8 @@ export default function Home() {
                       ? <>
                           <Button variant="primary" disabled={disableOnStop} onClick={onStopRecordClicked}>Stop</Button>
                           <Timer isActive={timer}/>
-                          <Button variant="primary" onClick={onListenButtonClicked} disabled={timer}>Listen</Button>
-                          <Button variant="primary" onClick={onSaveButtonClicked} disabled={timer}>Save</Button>
+                          <Button variant="primary" onClick={onListenButtonClicked} disabled={timer || !isRecordedMusicPlayed}>Listen</Button>
+                          <Button variant="primary" onClick={onSaveButtonClicked} disabled={timer || !isRecordedMusicPlayed}>Save</Button>
                           <Button variant="primary" onClick={onCancelRecordClicked} disabled={timer}>Cancel</Button>
 
                           <OnSaveModal

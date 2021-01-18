@@ -1,0 +1,1 @@
+export const isNotePlayedSelector = state => state.record.length !== 0;
