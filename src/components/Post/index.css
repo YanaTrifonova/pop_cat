@@ -1,3 +1,31 @@
 .post-image {
     height: 240px;
 }
+
+.post-title {
+    font-size: 34px !important;
+}
+
+.post-text {
+    margin-top: 35px;
+}
+
+.songs-buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
+.songs-button {
+    margin: 10px;
+}
+
+.songs-button:hover .button-img{
+    filter: invert(1);
+}
+
+.button-img {
+    width: 20px;
+    height: 20px;
+    filter: invert(.5);
+    transform: translate(0%, -10%);
+}

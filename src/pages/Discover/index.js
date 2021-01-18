@@ -7,6 +7,8 @@ import Post from "../../components/Post";
 import Audio from "../../components/Audio";
 import {preLoadCats, preLoadInstruments} from "../../store/preLoadMedia/actions";
 
+import "./index.css";
+
 export default function Discover() {
     const dispatch = useDispatch();
     const posts = useSelector(getAllPosts);
@@ -47,9 +49,11 @@ export default function Discover() {
                 <h1>Discover songs</h1>
             </Jumbotron>
 
-            {posts?.length === 0
-             ? <h1>Loading..</h1>
-             : <Post data={posts}/>}
+            <div className="post-container">
+                {posts?.length === 0
+                 ? <h1>Loading..</h1>
+                 : <Post data={posts}/>}
+            </div>
         </>
     )
 }
