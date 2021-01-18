@@ -1,0 +1,1 @@
+export const getAllMyPosts = state => state.myPosts;
