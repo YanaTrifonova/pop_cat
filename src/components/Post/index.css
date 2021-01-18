@@ -1,3 +1,18 @@
+.post-top {
+    max-height: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-round-text {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding-top: 5px;
+    border-radius: 100px;
+    font-weight: bold;
+}
+
 .post-image {
     height: 240px;
 }
