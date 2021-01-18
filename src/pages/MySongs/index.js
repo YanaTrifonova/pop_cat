@@ -7,11 +7,14 @@ import {preLoadInstruments} from "../../store/preLoadMedia/actions";
 import {selectToken, selectUserId} from "../../store/user/selector";
 import {getData} from "../../store/myPosts/action";
 import {getAllMyPosts} from "../../store/myPosts/selector";
+import {selector} from "../../store/renamePost/selector";
 
 export default function MySongs() {
     const token = useSelector(selectToken);
     const userId = useSelector(selectUserId);
     const posts = useSelector(getAllMyPosts);
+
+    const postChangedSelector = useSelector(selector);
 
     const dispatch = useDispatch();
     const [mediaInstruments, setMediaInstruments] = useState(null);
@@ -22,12 +25,12 @@ export default function MySongs() {
             dispatch(getData(userId, token));
         }
 
-        console.log("POSTS", posts)
+        console.log("POSTS", posts);
 
         dispatch(preLoadInstruments())
             .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
 
-    }, [dispatch, userId]);
+    }, [dispatch, userId, postChangedSelector]);
 
     return (
         <>
