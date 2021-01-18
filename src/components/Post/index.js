@@ -22,9 +22,13 @@ export default function Post(props) {
             interval = setTimeout(() => {
                 play(item.note, catElement, index);
 
-                let catOpenMouthTimeout = (item.note.includes("sadViolin") || item.note.includes("dunDunDun")
-                                           || item.note.includes("electricSaw") || item.note.includes("pig")
-                                           || item.note.includes("pig")) ? 400 : 100;
+                let catOpenMouthTimeout = (item.note.includes("sadViolin")
+                                           || item.note.includes("dunDunDun")
+                                           || item.note.includes("electricSaw")
+                                           || item.note.includes("pig")
+                                           || item.note.includes("pig"))
+                                          ? 400
+                                          : 100;
 
                 interval2 = setTimeout(() => {
                     unPlay(catElement, index);
