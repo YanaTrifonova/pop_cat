@@ -55,15 +55,23 @@ export default function Post(props) {
                     <Card.Body>
                         <Card.Title className="mb-3 post-title">{post.postName}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">Created by: {post.creator}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Created at: {post.updatedAt.substring(0, post.updatedAt.indexOf("T"))}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">Created at: {post.updatedAt.substring(
+                            0, post.updatedAt.indexOf("T"))}</Card.Subtitle>
                         <Card.Text className="post-text">
                             {post.postDescription}
                         </Card.Text>
                         <Card.Body className="songs-buttons-container">
-                            <Button className="songs-button" variant="outline-success" style={{marginRight: "5px"}}
+                            <Button className="songs-button"
+                                    variant="outline-success"
                                     onClick={() => playButtonClicked(
-                                        post.song, post.catName, post.id - 1)}><img className="button-img" src={playButton}/></Button>
-                            <Button className="songs-button" variant="outline-danger" onClick={() => stopButtonClicked()}><img className="button-img" src={stopButton}/></Button>
+                                        post.song, post.catName, post.id - 1)}>
+                                <img className="button-img" src={playButton} alt="Play button"/>
+                            </Button>
+                            <Button className="songs-button"
+                                    variant="outline-danger"
+                                    onClick={() => stopButtonClicked()}>
+                                <img className="button-img" src={stopButton} alt="Stop button"/>
+                            </Button>
                         </Card.Body>
                         <Card.Body>
                             <Button variant="primary" style={{marginRight: "5px"}}>Like</Button>
