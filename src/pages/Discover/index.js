@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Jumbotron} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {getData} from "../../store/posts/action";
-import {getAllPosts} from "../../store/posts/selector";
+import {getData} from "../../store/allPosts/action";
+import {getAllPosts} from "../../store/allPosts/selector";
 import Post from "../../components/Post";
 import Audio from "../../components/Audio";
-import {preLoadCats, preLoadInstruments} from "../../store/preLoadMedia/actions";
+import {preLoadInstruments} from "../../store/preLoadMedia/actions";
 
 import "./index.css";
 
@@ -13,14 +13,10 @@ export default function Discover() {
     const dispatch = useDispatch();
     const posts = useSelector(getAllPosts);
 
-    const [mediaCats, setMediaCats] = useState(null);
     const [mediaInstruments, setMediaInstruments] = useState(null);
 
     useEffect(() => {
         dispatch(getData());
-
-        dispatch(preLoadCats())
-            .then(() => setMediaCats(JSON.parse(window.localStorage.getItem("cats"))))
 
         dispatch(preLoadInstruments())
             .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
