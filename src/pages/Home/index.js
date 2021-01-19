@@ -184,8 +184,6 @@ export default function Home() {
         if (k !== instrument) {
             // set instrument that have chosen by user
             setInstrument(k);
-            // close record panel when User picked new instrument
-            setOpenRecordPanel(false);
             // revert changes of disables
             setDisableOnStop(false);
             // clear song values in local storage
@@ -197,8 +195,6 @@ export default function Home() {
         if (k !== cat) {
             // set cat that have chosen by user
             setCat(k);
-            // close record panel when User picked new cat
-            setOpenRecordPanel(false);
             // revert changes of disables
             setDisableOnStop(false);
             // clear song values in local storage
@@ -338,19 +334,19 @@ export default function Home() {
                               <Col sm={2}>
                                   <Nav variant="pills" className="flex-column">
                                       <Nav.Item>
-                                          <Nav.Link eventKey="catDefault">Default</Nav.Link>
+                                          <Nav.Link eventKey="catDefault" disabled={openRecordPanel}>Default</Nav.Link>
                                       </Nav.Item>
                                       <Nav.Item>
-                                          <Nav.Link eventKey="catPixel">Pixel</Nav.Link>
+                                          <Nav.Link eventKey="catPixel" disabled={openRecordPanel}>Pixel</Nav.Link>
                                       </Nav.Item>
                                       <Nav.Item>
-                                          <Nav.Link eventKey="catPirate">Pirate</Nav.Link>
+                                          <Nav.Link eventKey="catPirate" disabled={openRecordPanel}>Pirate</Nav.Link>
                                       </Nav.Item>
                                       <Nav.Item>
-                                          <Nav.Link eventKey="catWinter">Winter</Nav.Link>
+                                          <Nav.Link eventKey="catWinter" disabled={openRecordPanel}>Winter</Nav.Link>
                                       </Nav.Item>
                                       <Nav.Item>
-                                          <Nav.Link eventKey="catBW">Black and White</Nav.Link>
+                                          <Nav.Link eventKey="catBW" disabled={openRecordPanel}>Black and White</Nav.Link>
                                       </Nav.Item>
                                   </Nav>
                               </Col>
@@ -385,54 +381,53 @@ export default function Home() {
                   </Jumbotron>
                  }
 
-
                  <Tabs
                      id="controlled-tab"
                      className="instrument-tabs"
                      defaultActiveKey="defaultPianoAudios"
                      onSelect={(k) => setInstrumentTabAction(k)}
                      activeKey={instrument}>
-                     <Tab eventKey="defaultPianoAudios" title="default-piano">
+                     <Tab eventKey="defaultPianoAudios" title="default-piano" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[0]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="piano2" title="piano-2">
+                     <Tab eventKey="piano2" title="piano-2" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[1]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="piano3" title="piano-3">
+                     <Tab eventKey="piano3" title="piano-3" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[2]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="piano4" title="piano-4">
+                     <Tab eventKey="piano4" title="piano-4" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[3]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="bassDrum" title="Bass Drum">
+                     <Tab eventKey="bassDrum" title="Bass Drum" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[4]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="sadViolin" title="Sad Violin">
+                     <Tab eventKey="sadViolin" title="Sad Violin" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[5]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="dunDunDun" title="Dun Dun Dun">
+                     <Tab eventKey="dunDunDun" title="Dun Dun Dun" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[6]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="electricSaw" title="Electric Saw">
+                     <Tab eventKey="electricSaw" title="Electric Saw" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[7]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="heartBit" title="Heart Bit">
+                     <Tab eventKey="heartBit" title="Heart Bit" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[8]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="cow" title="Cow">
+                     <Tab eventKey="cow" title="Cow" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[9]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
-                     <Tab eventKey="pig" title="Pig">
+                     <Tab eventKey="pig" title="Pig" disabled={openRecordPanel}>
                          <Instrument cat={cat} instrument={mediaInstruments[10]} keyEvent={keyPressedEvent}
                                      isRecord={record}/>
                      </Tab>
