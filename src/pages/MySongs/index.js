@@ -26,6 +26,7 @@ export default function MySongs() {
         }
 
         console.log("POSTS", posts);
+        console.log("TOKEN", token);
 
         dispatch(preLoadInstruments())
             .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
@@ -34,30 +35,35 @@ export default function MySongs() {
 
     return (
         <>
-            {mediaInstruments === null
-             ? <h1>Loading...</h1>
+            {token === null
+             ? <a href={'/login'}>Please log in or sign up to see this page</a>
              : <>
-                 <Audio instrument={mediaInstruments[0]} type="default"/>
-                 <Audio instrument={mediaInstruments[1]} type="piano-2"/>
-                 <Audio instrument={mediaInstruments[2]} type="piano-3"/>
-                 <Audio instrument={mediaInstruments[3]} type="piano-4"/>
-                 <Audio instrument={mediaInstruments[4]} type="bass-drum"/>
-                 <Audio instrument={mediaInstruments[5]} type="sad-violin"/>
-                 <Audio instrument={mediaInstruments[6]} type="dun-dun-dun"/>
-                 <Audio instrument={mediaInstruments[7]} type="electric-saw"/>
-                 <Audio instrument={mediaInstruments[8]} type="heart-bit"/>
-                 <Audio instrument={mediaInstruments[9]} type="cows"/>
-                 <Audio instrument={mediaInstruments[10]} type="pig"/>
-             </>}
+                 {mediaInstruments === null
+                  ? <h1>Loading...</h1>
+                  : <>
+                      <Audio instrument={mediaInstruments[0]} type="default"/>
+                      <Audio instrument={mediaInstruments[1]} type="piano-2"/>
+                      <Audio instrument={mediaInstruments[2]} type="piano-3"/>
+                      <Audio instrument={mediaInstruments[3]} type="piano-4"/>
+                      <Audio instrument={mediaInstruments[4]} type="bass-drum"/>
+                      <Audio instrument={mediaInstruments[5]} type="sad-violin"/>
+                      <Audio instrument={mediaInstruments[6]} type="dun-dun-dun"/>
+                      <Audio instrument={mediaInstruments[7]} type="electric-saw"/>
+                      <Audio instrument={mediaInstruments[8]} type="heart-bit"/>
+                      <Audio instrument={mediaInstruments[9]} type="cows"/>
+                      <Audio instrument={mediaInstruments[10]} type="pig"/>
+                  </>}
 
-            <Jumbotron>
-                <h1>My songs</h1>
-            </Jumbotron>
-            <div className="post-container">
-                {posts?.length === 0
-                 ? <h1>Loading..</h1>
-                 : <Post data={posts}/>}
-            </div>
+                 <Jumbotron>
+                     <h1>My songs</h1>
+                 </Jumbotron>
+                 <div className="post-container">
+                     {posts?.length === 0
+                      ? <h1>Loading..</h1>
+                      : <Post data={posts} postOptions={true}/>}
+                 </div>
+             </>}
         </>
-    )
+    );
+
 }
