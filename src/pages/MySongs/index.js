@@ -31,6 +31,7 @@ export default function MySongs() {
         dispatch(preLoadInstruments())
             .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
 
+        // eslint-disable-next-line
     }, [dispatch, userId, postChangedSelector]);
 
     return (

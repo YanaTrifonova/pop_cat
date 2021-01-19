@@ -21,6 +21,9 @@ export default function Discover() {
         dispatch(preLoadInstruments())
             .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
 
+        dispatch(preLoadInstruments())
+            .then(() => JSON.parse(window.localStorage.getItem("instruments")));
+
     }, [dispatch, posts.length]);
 
     return (

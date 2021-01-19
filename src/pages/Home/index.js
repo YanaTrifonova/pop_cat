@@ -144,7 +144,10 @@ export default function Home() {
                 return null;
         }
 
-    }, [instrument, cat, record]);
+        // eslint-disable-next-line
+    }, [
+        // eslint-disable-next-line
+        instrument, cat, record]);
 
     const keyUp = useCallback(_ => {
         closeCatMouth(document.getElementById(cat), -1);
@@ -167,7 +170,13 @@ export default function Home() {
             document.removeEventListener("keypress", keyPressed, false);
             document.removeEventListener("keyup", keyUp, false);
         };
-    }, [keyUp, keyPressed, dispatch, mediaCats?.length, mediaInstruments?.length]);
+
+    }, [keyUp, keyPressed, dispatch,
+        // eslint-disable-next-line
+        mediaCats?.length,
+        // eslint-disable-next-line
+        mediaInstruments?.length
+    ]);
 
     function setInstrumentTabAction(k) {
         if (k !== instrument) {
