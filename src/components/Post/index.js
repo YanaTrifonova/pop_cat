@@ -16,6 +16,10 @@ import {showMessageWithTimeout} from "../../store/appState/actions";
 export default function Post(props) {
     const token = useSelector(selectToken);
     const dispatch = useDispatch();
+
+    // props postOptions flag used to show option menu
+    // for rename and delete post (used only for "My songs" page)
+    const postOptions = props.postOptions;
     const posts = props.data;
 
     console.log("POSTS", posts);
@@ -178,26 +182,30 @@ export default function Post(props) {
                                 <Card.Text style={{backgroundColor: post.userColor}}
                                            className="post-round-text">{post.creator.charAt(0)}
                                 </Card.Text>
-                                <>
-                                    <div className="mb-2">
-                                        <DropdownButton
-                                            as={ButtonGroup}
-                                            key={"right"}
-                                            id={`dropdown-button-drop-right`}
-                                            drop={"right"}
-                                            variant="secondary"
-                                            title={`Post № ${post.id}`}
-                                            onSelect={(e) => handleSelect(
-                                                e, post.id, post.postName, post.postDescription)}
-                                        >
-                                            <Dropdown.Header>Rename post options</Dropdown.Header>
-                                            <Dropdown.Item eventKey="1">Name</Dropdown.Item>
-                                            <Dropdown.Item eventKey="2">Description</Dropdown.Item>
-                                            <Dropdown.Divider/>
-                                            <Dropdown.Item eventKey="3">Delete Post</Dropdown.Item>
-                                        </DropdownButton>
-                                    </div>
-                                </>
+                                {
+                                    postOptions
+                                    ? <>
+                                        <div className="mb-2">
+                                            <DropdownButton
+                                                as={ButtonGroup}
+                                                key={"right"}
+                                                id={`dropdown-button-drop-right`}
+                                                drop={"right"}
+                                                variant="secondary"
+                                                title={`Post № ${post.id}`}
+                                                onSelect={(e) => handleSelect(
+                                                    e, post.id, post.postName, post.postDescription)}
+                                            >
+                                                <Dropdown.Header>Rename post options</Dropdown.Header>
+                                                <Dropdown.Item eventKey="1">Name</Dropdown.Item>
+                                                <Dropdown.Item eventKey="2">Description</Dropdown.Item>
+                                                <Dropdown.Divider/>
+                                                <Dropdown.Item eventKey="3">Delete Post</Dropdown.Item>
+                                            </DropdownButton>
+                                        </div>
+                                    </>
+                                    : null
+                                }
                             </Card.Body>
                             <Card.Img id={post.catName + index}
                                       variant="top"

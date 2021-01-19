@@ -48,7 +48,7 @@ export default function Discover() {
             <div className="post-container">
                 {posts?.length === 0
                  ? <h1>Loading..</h1>
-                 : <Post data={posts}/>}
+                 : <Post data={posts} postOptions={false}/>}
             </div>
         </>
     )
