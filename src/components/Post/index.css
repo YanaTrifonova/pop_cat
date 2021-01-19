@@ -1,3 +1,8 @@
+.post-card {
+    width: 23rem;
+    margin: 20px;
+}
+
 .post-top {
     max-height: 80px;
     display: flex;
@@ -15,7 +20,10 @@
 }
 
 .post-image {
-    height: 240px;
+    float: left;
+    width:  100px;
+    height: 300px;
+    object-fit: cover;
 }
 
 .post-title {

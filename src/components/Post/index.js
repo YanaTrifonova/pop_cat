@@ -174,10 +174,7 @@ export default function Post(props) {
             {
                 posts?.map((post, index) => {
                     return (
-                        <Card style={{
-                            width: '18rem',
-                            margin: "20px"
-                        }} key={index}>
+                        <Card className="post-card" key={index}>
                             <Card.Body className="post-top">
                                 <Card.Text style={{backgroundColor: post.userColor}}
                                            className="post-round-text">{post.creator.charAt(0)}
@@ -223,6 +220,7 @@ export default function Post(props) {
                                     {post.postDescription}
                                 </Card.Text>
                                 <Card.Body className="songs-buttons-container">
+                                    <Button variant="primary" style={{marginRight: "5px"}}>Like</Button>
                                     <Button className="songs-button"
                                             variant="outline-success"
                                             onClick={() => playButtonClicked(
@@ -234,9 +232,6 @@ export default function Post(props) {
                                             onClick={() => stopButtonClicked()}>
                                         <img className="button-img" src={stopButton} alt="Stop button"/>
                                     </Button>
-                                </Card.Body>
-                                <Card.Body>
-                                    <Button variant="primary" style={{marginRight: "5px"}}>Like</Button>
                                     <Button variant="primary">Favorites</Button>
                                 </Card.Body>
                             </Card.Body>
