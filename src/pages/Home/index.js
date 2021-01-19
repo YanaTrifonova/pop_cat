@@ -147,7 +147,8 @@ export default function Home() {
         // eslint-disable-next-line
     }, [
         // eslint-disable-next-line
-        instrument, cat, record]);
+        instrument, cat, record
+    ]);
 
     const keyUp = useCallback(_ => {
         closeCatMouth(document.getElementById(cat), -1);
@@ -171,7 +172,8 @@ export default function Home() {
             document.removeEventListener("keyup", keyUp, false);
         };
 
-    }, [keyUp, keyPressed, dispatch,
+    }, [
+        keyUp, keyPressed, dispatch,
         // eslint-disable-next-line
         mediaCats?.length,
         // eslint-disable-next-line
@@ -437,13 +439,20 @@ export default function Home() {
                  </Tabs>
 
                  <div className="button-record">
-                     <Button variant="danger" disabled={disableOnStop} onClick={onRecordClicked}>Record</Button>
+                     <Button variant="danger"
+                             disabled={disableOnStop || token === null}
+                             onClick={onRecordClicked}>
+                         {token === null
+                          ? "Log in to record the song"
+                          : "Record"}</Button>
                      {openRecordPanel
                       ? <>
                           <Button variant="primary" disabled={disableOnStop} onClick={onStopRecordClicked}>Stop</Button>
                           <Timer isActive={timer}/>
-                          <Button variant="primary" onClick={onListenButtonClicked} disabled={timer || !isRecordedMusicPlayed}>Listen</Button>
-                          <Button variant="primary" onClick={onSaveButtonClicked} disabled={timer || !isRecordedMusicPlayed}>Save</Button>
+                          <Button variant="primary" onClick={onListenButtonClicked}
+                                  disabled={timer || !isRecordedMusicPlayed}>Listen</Button>
+                          <Button variant="primary" onClick={onSaveButtonClicked}
+                                  disabled={timer || !isRecordedMusicPlayed}>Save</Button>
                           <Button variant="primary" onClick={onCancelRecordClicked} disabled={timer}>Cancel</Button>
 
                           <OnSaveModal
