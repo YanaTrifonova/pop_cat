@@ -9,6 +9,7 @@ import {getData} from "../../store/myPosts/action";
 import {getAllMyPosts} from "../../store/myPosts/selector";
 import {postSelector} from "../../store/renamePost/selector";
 import {likeSelector} from "../../store/likes/selector";
+import {favouriteSelector} from "../../store/favourites/selector";
 
 export default function MySongs() {
     const token = useSelector(selectToken);
@@ -17,6 +18,7 @@ export default function MySongs() {
 
     const postChangeSelector = useSelector(postSelector);
     const likeChangeSelector = useSelector(likeSelector);
+    const favouriteChangerSelector = useSelector(favouriteSelector);
 
     const dispatch = useDispatch();
     const [mediaInstruments, setMediaInstruments] = useState(null);
@@ -38,7 +40,7 @@ export default function MySongs() {
         }
 
         // eslint-disable-next-line
-    }, [dispatch, userId, postChangeSelector, likeChangeSelector]);
+    }, [dispatch, userId, postChangeSelector, likeChangeSelector, favouriteChangerSelector]);
 
     return (
         <>
