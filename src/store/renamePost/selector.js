@@ -1,1 +1,1 @@
-export const selector = state => state.renamePost;
+export const postSelector = state => state.renamePost;
