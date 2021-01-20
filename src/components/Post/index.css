@@ -21,7 +21,7 @@
 
 .post-image {
     float: left;
-    width:  100px;
+    width: 100px;
     height: 300px;
     object-fit: cover;
 }
@@ -38,7 +38,7 @@
 .post-text {
     margin-top: 10px;
     margin-bottom: 35px;
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     padding: 15px;
 }
 
@@ -59,7 +59,7 @@
     height: 60px;
 }
 
-.songs-button:hover .button-img{
+.songs-button:hover .button-img {
     filter: invert(1);
 }
 
@@ -73,7 +73,7 @@
     filter: invert(40%) sepia(52%) saturate(2233%) hue-rotate(332deg) brightness(81%) contrast(96%);
 }
 
-.songs-button:hover .button-img-not-liked{
+.songs-button:hover .button-img-not-liked {
     filter: invert(1);
 }
 

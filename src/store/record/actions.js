@@ -55,10 +55,12 @@ export const saveRecord = (token, cat, instrument, song, name, description) => {
                 }
             );
 
-            dispatch(showMessageWithTimeout("success",
-                                            false,
-                                            `Congratulation! ${name} song was saved!`,
-                                            3500));
+            dispatch(showMessageWithTimeout(
+                "success",
+                false,
+                `Congratulation! ${name} song was saved!`,
+                3500
+            ));
 
             dispatch(clearRecordInLocalStorage());
 

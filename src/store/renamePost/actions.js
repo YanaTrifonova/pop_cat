@@ -86,7 +86,7 @@ export const deletePost = (postId, token) => {
 
             dispatch(deleteYourPost(response.data))
 
-        }catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }

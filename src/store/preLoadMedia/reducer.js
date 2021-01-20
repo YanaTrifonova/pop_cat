@@ -1,7 +1,7 @@
 import {PRE_LOAD_CATS, PRE_LOAD_INSTRUMENTS} from "./actions";
 
 const initialState = {
-    catsPreLoaded : false,
+    catsPreLoaded: false,
     instrumentsPreLoaded: false,
 };
 
@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
             }
 
         case PRE_LOAD_INSTRUMENTS: {
-            return  {
+            return {
                 catsPreLoaded: state.catsPreLoaded,
                 instrumentsPreLoaded: true,
             }

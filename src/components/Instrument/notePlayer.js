@@ -6,7 +6,8 @@ export function notePlayer(note) {
         setTimeout(() => {
             note.pause();
         }, 1300)
-    } if ( note.id.includes("electricSaw"))  {
+    }
+    if (note.id.includes("electricSaw")) {
         setTimeout(() => {
             note.pause();
         }, 2000)

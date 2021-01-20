@@ -328,8 +328,7 @@ export default function Home() {
                       <Tab.Container id="left-tabs-example"
                                      defaultActiveKey="first"
                                      onSelect={(k) => setCatOnSelect(k)}
-                                     activeKey={cat}
-                      >
+                                     activeKey={cat}>
                           <Row>
                               <Col sm={2}>
                                   <Nav variant="pills" className="flex-column">

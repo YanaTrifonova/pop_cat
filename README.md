@@ -21,11 +21,13 @@ Backend repository - [link](https://github.com/YanaTrifonova/pop_cat_server)
 - JWT & BCrypt Authentication
 - PostgreSQL
 - Sequelize ORM
-    
+
 ## Project status board with user stories and release plan
+
 [Link to GitHub project board](https://github.com/YanaTrifonova/pop_cat/projects/1)
 
 ## Wireframes
+
 [User scenarios in Figma](https://www.figma.com/file/hJTSCDzAOvyKey14xBgKCz/POP-CAT-SING-A-SONG?node-id=0%3A1)
 
 ## Run in development mode

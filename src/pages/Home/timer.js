@@ -15,8 +15,8 @@ export default function Timer(props) {
                 const secondCounter = counter % 60;
                 const minuteCounter = Math.floor(counter / 60);
 
-                const computedSecond = String(secondCounter).length === 1 ? `0${secondCounter}`: secondCounter;
-                const computedMinute = String(minuteCounter).length === 1 ? `0${minuteCounter}`: minuteCounter;
+                const computedSecond = String(secondCounter).length === 1 ? `0${secondCounter}` : secondCounter;
+                const computedMinute = String(minuteCounter).length === 1 ? `0${minuteCounter}` : minuteCounter;
 
                 setSecond(computedSecond);
                 setMinute(computedMinute);
@@ -28,7 +28,7 @@ export default function Timer(props) {
         return () => clearInterval(intervalId);
     }, [isActive, counter])
 
-    return(
+    return (
         <div>
             <span>{minute}</span>
             <span>:</span>
