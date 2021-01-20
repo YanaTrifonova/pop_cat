@@ -19,11 +19,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {deletePost, updatePostDescription, updatePostName} from "../../store/renamePost/actions";
 import {selectToken, selectUserId} from "../../store/user/selector";
 import {showMessageWithTimeout} from "../../store/appState/actions";
+import {toggleLikeButtonCounter} from "../../store/likes/action";
+import {toggleFavouriteButtonCounter} from "../../store/favourites/actions";
 
 import stopButtonImg from "../../images/black-check-box.svg";
 import playButtonImg from "../../images/play-arrow.svg";
 import likeButtonImg from "../../images/like-heart-button.svg";
-import {toggleLikeButtonCounter} from "../../store/likes/action";
+import favouriteButtonImg from "../../images/mark-as-favorite-star.svg";
 
 export default function Post(props) {
     const token = useSelector(selectToken);
@@ -58,6 +60,10 @@ export default function Post(props) {
 
     function likeButtonClicked(userId, postId, isLiked, token) {
         dispatch(toggleLikeButtonCounter(userId, postId, isLiked, token));
+    }
+
+    function favouriteButtonClicked(userId, postId, isFavourite, token) {
+        dispatch(toggleFavouriteButtonCounter(userId, postId, isFavourite, token));
     }
 
     function playButtonClicked(song, catId, index) {
@@ -274,13 +280,37 @@ export default function Post(props) {
                                     <img className="button-img button-img-size" src={stopButtonImg}
                                          alt="Stop button"/>
                                 </Button>
-                                <Button className="songs-button" variant="primary">F</Button>
+                                {userId === undefined
+                                 ? <OverlayTrigger
+                                     overlay={
+                                         <Tooltip id="tooltip-disabled">Please log in to favourite this post</Tooltip>}>
+                                         <span className="d-inline-block">
+                                             <Button className={"songs-button-disable"}
+                                                     disabled={true}
+                                                     variant="outline-warning">
+                                                 <img className={"button-img-size button-img-not-favourite"}
+                                                      src={favouriteButtonImg}
+                                                      alt="Favourite button"/>{post.favourites}
+                                             </Button>
+                                         </span>
+                                 </OverlayTrigger>
+                                 : <Button className={`songs-button ${post.isFavouriteByUser
+                                                                      ? "white-font"
+                                                                      : "songs-button-favourite"}`}
+                                           variant={post.isFavouriteByUser ? "warning" : "outline-warning"}
+                                           onClick={() => favouriteButtonClicked(
+                                               userId, post.id, post.isFavouriteByUser, token)}>
+                                     <img className={`button-img-size ${post.isFavouriteByUser
+                                                                        ? "button-img-favourite"
+                                                                        : "button-img-not-favourite"}`}
+                                          src={favouriteButtonImg}
+                                          alt="Favourite button"/>{post.favourites}
+                                 </Button>}
                             </Card.Body>
                         </Card.Body>
                     </Card>
                 )
-            })
-            }
+            })}
             <>
                 <Modal show={showChangeNameModal} onHide={() => setShowChangeNameModal(false)}>
                     <Modal.Header closeButton>

@@ -63,6 +63,10 @@
     filter: invert(1);
 }
 
+.button-img {
+    filter: invert(.5);
+}
+
 .button-img-size {
     width: 20px;
     height: 20px;
@@ -77,10 +81,27 @@
     filter: invert(1);
 }
 
+.button-img-not-favourite {
+    filter: invert(54%) sepia(98%) saturate(313%) hue-rotate(5deg) brightness(105%) contrast(87%);
+}
+
+.songs-button:hover .button-img-not-favourite {
+    filter: invert(1);
+}
+
+.songs-button-favourite:hover {
+    color: white !important;
+}
+
 .button-img-liked {
     filter: invert(1);
 }
 
-.button-img {
-    filter: invert(.5);
+.button-img-favourite {
+    filter: invert(1) !important;
+    font-weight: bold;
+}
+
+.white-font {
+    color: white !important;
 }
