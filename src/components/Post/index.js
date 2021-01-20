@@ -1,20 +1,33 @@
-import {Button, ButtonGroup, Card, Dropdown, DropdownButton, Form, Modal} from "react-bootstrap";
+import {
+    Button,
+    ButtonGroup,
+    Card,
+    Dropdown,
+    DropdownButton,
+    Form,
+    Modal,
+    OverlayTrigger,
+    Tooltip
+} from "react-bootstrap";
 import React, {useState} from "react";
 import {apiUrl} from "../../config/constants";
 import {play} from "../Instrument/play";
 import {unPlay} from "../Instrument/unPlay";
 
 import "./index.css";
-
-import stopButton from "../../images/black-check-box.svg";
-import playButton from "../../images/play-arrow.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePost, updatePostDescription, updatePostName} from "../../store/renamePost/actions";
-import {selectToken} from "../../store/user/selector";
+import {selectToken, selectUserId} from "../../store/user/selector";
 import {showMessageWithTimeout} from "../../store/appState/actions";
+
+import stopButtonImg from "../../images/black-check-box.svg";
+import playButtonImg from "../../images/play-arrow.svg";
+import likeButtonImg from "../../images/like-heart-button.svg";
+import {toggleLikeButtonCounter} from "../../store/likes/action";
 
 export default function Post(props) {
     const token = useSelector(selectToken);
+    const userId = useSelector(selectUserId);
     const dispatch = useDispatch();
 
     // props postOptions flag used to show option menu
@@ -23,6 +36,7 @@ export default function Post(props) {
     const posts = props.data;
 
     console.log("POSTS", posts);
+    console.log("USER ID FROM POST COMPONENT", userId);
 
     // post name useStates:
     const [showChangeNameModal, setShowChangeNameModal] = useState(false);
@@ -41,6 +55,10 @@ export default function Post(props) {
     var interval;
     var interval2;
     var intervals = [];
+
+    function likeButtonClicked(userId, postId, isLiked, token) {
+        dispatch(toggleLikeButtonCounter(userId, postId, isLiked, token));
+    }
 
     function playButtonClicked(song, catId, index) {
         let catElement = document.getElementById(catId + index);
@@ -220,19 +238,44 @@ export default function Post(props) {
                                     {post.postDescription}
                                 </Card.Text>
                                 <Card.Body className="songs-buttons-container">
-                                    <Button variant="primary" style={{marginRight: "5px"}}>Like</Button>
+                                    {userId === undefined
+                                     ? <OverlayTrigger
+                                         overlay={
+                                             <Tooltip id="tooltip-disabled">Please log in to like this post</Tooltip>}>
+                                         <span className="d-inline-block">
+                                             <Button className={"songs-button-disable"}
+                                                     disabled={true}
+                                                     variant="outline-danger">
+                                                 <img className={"button-img-size button-img-not-liked"}
+                                                      src={likeButtonImg}
+                                                      alt="Like button"/>{post.likes}
+                                             </Button>
+                                         </span>
+                                     </OverlayTrigger>
+                                     : <Button className={"songs-button"}
+                                               variant={post.isLikedByUser ? "danger" : "outline-danger"}
+                                               onClick={() => likeButtonClicked(
+                                                   userId, post.id, post.isLikedByUser, token)}>
+                                         <img className={`button-img-size ${post.isLikedByUser
+                                                                            ? "button-img-liked"
+                                                                            : "button-img-not-liked"}`}
+                                              src={likeButtonImg}
+                                              alt="Like button"/>{post.likes}
+                                     </Button>}
                                     <Button className="songs-button"
                                             variant="outline-success"
                                             onClick={() => playButtonClicked(
                                                 post.song, post.catName, index)}>
-                                        <img className="button-img" src={playButton} alt="Play button"/>
+                                        <img className="button-img button-img-size" src={playButtonImg}
+                                             alt="Play button"/>
                                     </Button>
                                     <Button className="songs-button"
-                                            variant="outline-danger"
+                                            variant="outline-secondary"
                                             onClick={() => stopButtonClicked()}>
-                                        <img className="button-img" src={stopButton} alt="Stop button"/>
+                                        <img className="button-img button-img-size" src={stopButtonImg}
+                                             alt="Stop button"/>
                                     </Button>
-                                    <Button variant="primary">Favorites</Button>
+                                    <Button className="songs-button" variant="primary">Favorites</Button>
                                 </Card.Body>
                             </Card.Body>
                         </Card>
