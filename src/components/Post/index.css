@@ -26,25 +26,37 @@
     object-fit: cover;
 }
 
+.post-info-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .post-title {
     font-size: 34px !important;
 }
 
 .post-text {
-    margin-top: 35px;
+    margin-top: 10px;
+    margin-bottom: 35px;
+    background-color: rgba(0,0,0,0.05);
+    padding: 15px;
 }
 
 .songs-buttons-container {
     display: flex;
-    justify-content: center;
+    padding: 0 !important;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 .songs-button {
-    margin: 10px;
+    width: 45px;
+    height: 60px;
 }
 
 .songs-button-disable {
-    margin: 10px;
+    width: 45px;
+    height: 60px;
 }
 
 .songs-button:hover .button-img{

@@ -189,59 +189,58 @@ export default function Post(props) {
 
     return (
         <>
-            {
-                posts?.map((post, index) => {
-                    return (
-                        <Card className="post-card" key={index}>
-                            <Card.Body className="post-top">
-                                <Card.Text style={{backgroundColor: post.userColor}}
-                                           className="post-round-text">{post.creator.charAt(0)}
-                                </Card.Text>
-                                {
-                                    postOptions
-                                    ? <>
-                                        <div className="mb-2">
-                                            <DropdownButton
-                                                as={ButtonGroup}
-                                                key={"right"}
-                                                id={`dropdown-button-drop-right`}
-                                                drop={"right"}
-                                                variant="secondary"
-                                                title={`Post № ${post.id}`}
-                                                onSelect={(e) => handleSelect(
-                                                    e, post.id, post.postName, post.postDescription)}
-                                            >
-                                                <Dropdown.Header>Rename post options</Dropdown.Header>
-                                                <Dropdown.Item eventKey="1">Name</Dropdown.Item>
-                                                <Dropdown.Item eventKey="2">Description</Dropdown.Item>
-                                                <Dropdown.Divider/>
-                                                <Dropdown.Item eventKey="3">Delete Post</Dropdown.Item>
-                                            </DropdownButton>
-                                        </div>
-                                    </>
-                                    : null
-                                }
-                            </Card.Body>
-                            <Card.Img id={post.catName + index}
-                                      variant="top"
-                                      src={`${apiUrl + post.catUrl}`}
-                                      className="post-image"/>
-                            <Card.Body>
-                                <Card.Title className="mb-3 post-title">{post.postName}</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">
-                                    Created by: {post.creator}
-                                </Card.Subtitle>
-                                <Card.Subtitle className="mb-2 text-muted">
-                                    Created at: {post.updatedAt.substring(0, post.updatedAt.indexOf("T"))}
-                                </Card.Subtitle>
-                                <Card.Text className="post-text">
-                                    {post.postDescription}
-                                </Card.Text>
-                                <Card.Body className="songs-buttons-container">
-                                    {userId === undefined
-                                     ? <OverlayTrigger
-                                         overlay={
-                                             <Tooltip id="tooltip-disabled">Please log in to like this post</Tooltip>}>
+            {posts?.map((post, index) => {
+                return (
+                    <Card className="post-card" key={index}>
+                        <Card.Body className="post-top">
+                            <Card.Text style={{backgroundColor: post.userColor}}
+                                       className="post-round-text">{post.creator.charAt(0)}
+                            </Card.Text>
+                            {
+                                postOptions
+                                ? <>
+                                    <div className="mb-2">
+                                        <DropdownButton
+                                            as={ButtonGroup}
+                                            key={"right"}
+                                            id={`dropdown-button-drop-right`}
+                                            drop={"right"}
+                                            variant="secondary"
+                                            title={`Post № ${post.id}`}
+                                            onSelect={(e) => handleSelect(
+                                                e, post.id, post.postName, post.postDescription)}
+                                        >
+                                            <Dropdown.Header>Rename post options</Dropdown.Header>
+                                            <Dropdown.Item eventKey="1">Name</Dropdown.Item>
+                                            <Dropdown.Item eventKey="2">Description</Dropdown.Item>
+                                            <Dropdown.Divider/>
+                                            <Dropdown.Item eventKey="3">Delete Post</Dropdown.Item>
+                                        </DropdownButton>
+                                    </div>
+                                </>
+                                : null
+                            }
+                        </Card.Body>
+                        <Card.Img id={post.catName + index}
+                                  variant="top"
+                                  src={`${apiUrl + post.catUrl}`}
+                                  className="post-image"/>
+                        <Card.Body className="post-info-container">
+                            <Card.Title className="mb-3 post-title">{post.postName}</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">
+                                Created by: {post.creator}
+                            </Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted">
+                                Created at: {post.updatedAt.substring(0, post.updatedAt.indexOf("T"))}
+                            </Card.Subtitle>
+                            <Card.Text className="post-text">
+                                {post.postDescription}
+                            </Card.Text>
+                            <Card.Body className="songs-buttons-container">
+                                {userId === undefined
+                                 ? <OverlayTrigger
+                                     overlay={
+                                         <Tooltip id="tooltip-disabled">Please log in to like this post</Tooltip>}>
                                          <span className="d-inline-block">
                                              <Button className={"songs-button-disable"}
                                                      disabled={true}
@@ -251,36 +250,36 @@ export default function Post(props) {
                                                       alt="Like button"/>{post.likes}
                                              </Button>
                                          </span>
-                                     </OverlayTrigger>
-                                     : <Button className={"songs-button"}
-                                               variant={post.isLikedByUser ? "danger" : "outline-danger"}
-                                               onClick={() => likeButtonClicked(
-                                                   userId, post.id, post.isLikedByUser, token)}>
-                                         <img className={`button-img-size ${post.isLikedByUser
-                                                                            ? "button-img-liked"
-                                                                            : "button-img-not-liked"}`}
-                                              src={likeButtonImg}
-                                              alt="Like button"/>{post.likes}
-                                     </Button>}
-                                    <Button className="songs-button"
-                                            variant="outline-success"
-                                            onClick={() => playButtonClicked(
-                                                post.song, post.catName, index)}>
-                                        <img className="button-img button-img-size" src={playButtonImg}
-                                             alt="Play button"/>
-                                    </Button>
-                                    <Button className="songs-button"
-                                            variant="outline-secondary"
-                                            onClick={() => stopButtonClicked()}>
-                                        <img className="button-img button-img-size" src={stopButtonImg}
-                                             alt="Stop button"/>
-                                    </Button>
-                                    <Button className="songs-button" variant="primary">Favorites</Button>
-                                </Card.Body>
+                                 </OverlayTrigger>
+                                 : <Button className={"songs-button"}
+                                           variant={post.isLikedByUser ? "danger" : "outline-danger"}
+                                           onClick={() => likeButtonClicked(
+                                               userId, post.id, post.isLikedByUser, token)}>
+                                     <img className={`button-img-size ${post.isLikedByUser
+                                                                        ? "button-img-liked"
+                                                                        : "button-img-not-liked"}`}
+                                          src={likeButtonImg}
+                                          alt="Like button"/>{post.likes}
+                                 </Button>}
+                                <Button className="songs-button"
+                                        variant="outline-success"
+                                        onClick={() => playButtonClicked(
+                                            post.song, post.catName, index)}>
+                                    <img className="button-img button-img-size" src={playButtonImg}
+                                         alt="Play button"/>
+                                </Button>
+                                <Button className="songs-button"
+                                        variant="outline-secondary"
+                                        onClick={() => stopButtonClicked()}>
+                                    <img className="button-img button-img-size" src={stopButtonImg}
+                                         alt="Stop button"/>
+                                </Button>
+                                <Button className="songs-button" variant="primary">F</Button>
                             </Card.Body>
-                        </Card>
-                    )
-                })
+                        </Card.Body>
+                    </Card>
+                )
+            })
             }
             <>
                 <Modal show={showChangeNameModal} onHide={() => setShowChangeNameModal(false)}>
