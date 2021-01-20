@@ -1,0 +1,1 @@
+export const likeSelector = state => state.likes;

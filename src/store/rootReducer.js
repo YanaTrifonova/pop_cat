@@ -6,6 +6,7 @@ import preLoadMedia from "./preLoadMedia/reducer";
 import posts from "./allPosts/reducer";
 import myPosts from "./myPosts/reducer";
 import renamePost from "./renamePost/reducer";
+import likes from "./likes/reducer";
 
 export default combineReducers({
     appState,
@@ -15,4 +16,5 @@ export default combineReducers({
     posts,
     myPosts,
     renamePost,
+    likes,
 });
