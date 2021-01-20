@@ -43,13 +43,32 @@
     margin: 10px;
 }
 
+.songs-button-disable {
+    margin: 10px;
+}
+
 .songs-button:hover .button-img{
     filter: invert(1);
 }
 
-.button-img {
+.button-img-size {
     width: 20px;
     height: 20px;
-    filter: invert(.5);
     transform: translate(0%, -10%);
+}
+
+.button-img-not-liked {
+    filter: invert(40%) sepia(52%) saturate(2233%) hue-rotate(332deg) brightness(81%) contrast(96%);
+}
+
+.songs-button:hover .button-img-not-liked{
+    filter: invert(1);
+}
+
+.button-img-liked {
+    filter: invert(1);
+}
+
+.button-img {
+    filter: invert(.5);
 }
