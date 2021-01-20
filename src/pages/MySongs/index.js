@@ -7,14 +7,16 @@ import {preLoadInstruments} from "../../store/preLoadMedia/actions";
 import {selectToken, selectUserId} from "../../store/user/selector";
 import {getData} from "../../store/myPosts/action";
 import {getAllMyPosts} from "../../store/myPosts/selector";
-import {selector} from "../../store/renamePost/selector";
+import {postSelector} from "../../store/renamePost/selector";
+import {likeSelector} from "../../store/likes/selector";
 
 export default function MySongs() {
     const token = useSelector(selectToken);
     const userId = useSelector(selectUserId);
     const posts = useSelector(getAllMyPosts);
 
-    const postChangedSelector = useSelector(selector);
+    const postChangeSelector = useSelector(postSelector);
+    const likeChangeSelector = useSelector(likeSelector);
 
     const dispatch = useDispatch();
     const [mediaInstruments, setMediaInstruments] = useState(null);
@@ -28,11 +30,15 @@ export default function MySongs() {
         console.log("POSTS", posts);
         console.log("TOKEN", token);
 
-        dispatch(preLoadInstruments())
-            .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
+        if (window.localStorage.getItem("instruments") === null) {
+            dispatch(preLoadInstruments())
+                .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
+        } else {
+            setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments")));
+        }
 
         // eslint-disable-next-line
-    }, [dispatch, userId, postChangedSelector]);
+    }, [dispatch, userId, postChangeSelector, likeChangeSelector]);
 
     return (
         <>
