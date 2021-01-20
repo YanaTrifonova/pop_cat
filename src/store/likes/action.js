@@ -24,7 +24,7 @@ export const toggleLikeButtonCounter = (userId, postId, isLiked, token) => {
     return async (dispatch) => {
         try {
             if (isLiked) {
-                console.log("IFF", isLiked)
+                console.log("IF isLiked=", isLiked)
 
                 await axios.delete(
                     `${apiUrl}/like/${userId}/${postId}`,
@@ -38,7 +38,7 @@ export const toggleLikeButtonCounter = (userId, postId, isLiked, token) => {
                 dispatch(deleteYourLike("-1"));
 
             } else {
-                console.log("ELSE", isLiked)
+                console.log("ELSE isLiked=", isLiked)
 
                 await axios.post(
                     `${apiUrl}/like`,
