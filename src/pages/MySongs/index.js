@@ -66,12 +66,14 @@ export default function MySongs() {
                  <Jumbotron>
                      <h1>My songs</h1>
                  </Jumbotron>
+
                  <div className="post-container">
                      {posts?.length === 0
                       ? <h1>Loading..</h1>
                       : <Post data={posts} postOptions={true}/>}
                  </div>
-             </>}
+             </>
+            }
         </>
     );
 
