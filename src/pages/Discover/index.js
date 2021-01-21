@@ -6,17 +6,27 @@ import {getAllPosts} from "../../store/allPosts/selector";
 import Post from "../../components/Post";
 import Audio from "../../components/Audio";
 import {preLoadInstruments} from "../../store/preLoadMedia/actions";
+import {likeSelector} from "../../store/likes/selector";
+import {favouriteSelector} from "../../store/favourites/selector";
+import {postSelector} from "../../store/renamePost/selector";
+import {selectUserId} from "../../store/user/selector";
 
 import "./index.css";
 
 export default function Discover() {
     const dispatch = useDispatch();
+    const userId = useSelector(selectUserId);
     const posts = useSelector(getAllPosts);
+    const postChangeSelector = useSelector(postSelector);
+    const likeChangeSelector = useSelector(likeSelector);
+    const favouriteChangerSelector = useSelector(favouriteSelector);
 
     const [mediaInstruments, setMediaInstruments] = useState(null);
 
     useEffect(() => {
-        dispatch(getData());
+        console.log("RENDER DISCOVER", userId);
+
+        dispatch(getData(userId));
 
         dispatch(preLoadInstruments())
             .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
@@ -24,7 +34,7 @@ export default function Discover() {
         dispatch(preLoadInstruments())
             .then(() => JSON.parse(window.localStorage.getItem("instruments")));
 
-    }, [dispatch, posts.length]);
+    }, [dispatch, posts.length, userId, postChangeSelector, likeChangeSelector, favouriteChangerSelector]);
 
     return (
         <>
