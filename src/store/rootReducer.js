@@ -8,6 +8,7 @@ import myPosts from "./myPosts/reducer";
 import renamePost from "./renamePost/reducer";
 import likes from "./likes/reducer";
 import favorites from "./favourites/reducer";
+import myFavourites from "./myFavourites/reducer";
 
 export default combineReducers({
     appState,
@@ -19,4 +20,5 @@ export default combineReducers({
     renamePost,
     likes,
     favorites,
+    myFavourites,
 });
