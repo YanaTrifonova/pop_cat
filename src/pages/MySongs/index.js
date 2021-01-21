@@ -71,7 +71,7 @@ export default function MySongs() {
 
                  <div className="post-container">
                      {posts?.length === 0
-                      ? <h1>Loading..</h1>
+                      ? <h1>No songs were recorded by you</h1>
                       : <Post data={posts} postOptions={true}/>}
                  </div>
              </>
