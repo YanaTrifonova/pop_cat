@@ -5,7 +5,6 @@ export const DELETE_FAVOURITES = "DELETE_FAVOURITES";
 export const SET_FAVOURITES = "SET_FAVOURITES";
 
 function deleteYourFavourite(data) {
-    console.log("deleteYourFavourite", data)
     return {
         type: DELETE_FAVOURITES,
         payload: data
@@ -13,7 +12,6 @@ function deleteYourFavourite(data) {
 }
 
 function setYourFavourite(data) {
-    console.log("setYourFavourite", data)
     return {
         type: SET_FAVOURITES,
         payload: data

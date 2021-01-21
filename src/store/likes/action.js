@@ -5,7 +5,6 @@ export const DELETE_LIKE = "DELETE_LIKE";
 export const SET_LIKE = "SET_LIKE";
 
 function deleteYourLike(data) {
-    console.log("deleteYourLike", data)
     return {
         type: DELETE_LIKE,
         payload: data
@@ -13,7 +12,6 @@ function deleteYourLike(data) {
 }
 
 function setYourLike(data) {
-    console.log("setYourLike", data)
     return {
         type: SET_LIKE,
         payload: data
