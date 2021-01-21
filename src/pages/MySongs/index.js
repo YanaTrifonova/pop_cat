@@ -64,7 +64,9 @@ export default function MySongs() {
                   </>}
 
                  <Jumbotron>
-                     <h1>My songs</h1>
+                     {posts?.length === 1
+                      ? <h1>My song</h1>
+                      : <h1>My songs</h1>}
                  </Jumbotron>
 
                  <div className="post-container">
