@@ -202,30 +202,28 @@ export default function Post(props) {
                             <Card.Text style={{backgroundColor: post.userColor}}
                                        className="post-round-text">{post.creator.charAt(0)}
                             </Card.Text>
-                            {
-                                postOptions
-                                ? <>
-                                    <div className="mb-2">
-                                        <DropdownButton
-                                            as={ButtonGroup}
-                                            key={"right"}
-                                            id={`dropdown-button-drop-right`}
-                                            drop={"right"}
-                                            variant="secondary"
-                                            title={`Post № ${post.id}`}
-                                            onSelect={(e) => handleSelect(
-                                                e, post.id, post.postName, post.postDescription)}
-                                        >
-                                            <Dropdown.Header>Rename post options</Dropdown.Header>
-                                            <Dropdown.Item eventKey="1">Name</Dropdown.Item>
-                                            <Dropdown.Item eventKey="2">Description</Dropdown.Item>
-                                            <Dropdown.Divider/>
-                                            <Dropdown.Item eventKey="3">Delete Post</Dropdown.Item>
-                                        </DropdownButton>
-                                    </div>
-                                </>
-                                : null
-                            }
+                            {postOptions
+                             ? <>
+                                 <div className="mb-2">
+                                     <DropdownButton
+                                         as={ButtonGroup}
+                                         key={"right"}
+                                         id={`dropdown-button-drop-right`}
+                                         drop={"right"}
+                                         variant="secondary"
+                                         title={`Post № ${post.id}`}
+                                         onSelect={(e) => handleSelect(
+                                             e, post.id, post.postName, post.postDescription)}
+                                     >
+                                         <Dropdown.Header>Rename post options</Dropdown.Header>
+                                         <Dropdown.Item eventKey="1">Name</Dropdown.Item>
+                                         <Dropdown.Item eventKey="2">Description</Dropdown.Item>
+                                         <Dropdown.Divider/>
+                                         <Dropdown.Item eventKey="3">Delete Post</Dropdown.Item>
+                                     </DropdownButton>
+                                 </div>
+                             </>
+                             : null}
                         </Card.Body>
                         <Card.Img id={post.catName + index}
                                   variant="top"
@@ -245,11 +243,11 @@ export default function Post(props) {
                             <Card.Body className="songs-buttons-container">
                                 {userId === undefined
                                  ? <OverlayTrigger
-                                     overlay={
-                                         <Tooltip id="tooltip-disabled">Please log in to like this post</Tooltip>}>
+                                     overlay={<Tooltip id="tooltip-disabled">Please log in to like this post</Tooltip>}>
                                          <span className="d-inline-block">
                                              <Button className={"songs-button-disable"}
-                                                     disabled={true}
+                                                     disabled
+                                                     style={{pointerEvents: 'none'}}
                                                      variant="outline-danger">
                                                  <img className={"button-img-size button-img-not-liked"}
                                                       src={likeButtonImg}
@@ -282,11 +280,12 @@ export default function Post(props) {
                                 </Button>
                                 {userId === undefined
                                  ? <OverlayTrigger
-                                     overlay={
-                                         <Tooltip id="tooltip-disabled">Please log in to favourite this post</Tooltip>}>
+                                     overlay={<Tooltip id="tooltip-disabled">Please log in to favourite this
+                                         post</Tooltip>}>
                                          <span className="d-inline-block">
-                                             <Button className={"songs-button-disable"}
-                                                     disabled={true}
+                                             <Button className="songs-button-disable"
+                                                     style={{pointerEvents: 'none'}}
+                                                     disabled
                                                      variant="outline-warning">
                                                  <img className={"button-img-size button-img-not-favourite"}
                                                       src={favouriteButtonImg}
