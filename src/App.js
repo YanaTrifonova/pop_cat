@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import Discover from "./pages/Discover";
 import MySongs from "./pages/MySongs";
 import Favorites from "./pages/Favorites";
-import AboutPopCat from "./pages/About";
+import AboutPopCatAndMe from "./pages/About";
 
 import Navigation from "./components/Navigation";
 import Loading from "./components/Loading";
@@ -38,7 +38,7 @@ function App() {
                     <Route path="/discover" component={Discover}/>
                     <Route path="/private" component={MySongs}/>
                     <Route path="/favorites" component={Favorites}/>
-                    <Route path="/about" component={AboutPopCat}/>
+                    <Route path="/about" component={AboutPopCatAndMe}/>
                     <Route path="/signup" component={SignUp}/>
                     <Route path="/login" component={Login}/>
                 </Switch>

@@ -25,7 +25,7 @@ export default function Navigation() {
                     {token === null ? null : <NavbarItem path="/private" linkText="My songs"/>}
                     <NavbarItem path="/discover" linkText="Discover"/>
                     {token === null ? null : <NavbarItem path="/favorites" linkText="Favorites"/>}
-                    <NavbarItem path="/about" linkText="About Me"/>
+                    <NavbarItem path="/about" linkText="About Pop Cat and Me"/>
                     {loginLogoutControls}
                 </Nav>
             </Navbar.Collapse>
