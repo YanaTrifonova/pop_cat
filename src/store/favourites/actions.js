@@ -38,7 +38,7 @@ export const toggleFavouriteButtonCounter = (userId, postId, isFavourite, token)
             } else {
                 console.log("ELSE isFavourite=", isFavourite)
 
-                await axios.post(
+                await axios.put(
                     `${apiUrl}/favourite`,
                     {
                         userId: userId,

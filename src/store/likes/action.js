@@ -38,7 +38,7 @@ export const toggleLikeButtonCounter = (userId, postId, isLiked, token) => {
             } else {
                 console.log("ELSE isLiked=", isLiked)
 
-                await axios.post(
+                await axios.put(
                     `${apiUrl}/like`,
                     {
                         userId: userId,
