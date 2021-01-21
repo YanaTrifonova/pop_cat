@@ -26,9 +26,6 @@ export default function Favorites() {
             dispatch(getData(userId, token));
         }
 
-        console.log("POSTS", posts);
-        console.log("TOKEN", token);
-
         if (window.localStorage.getItem("instruments") === null) {
             dispatch(preLoadInstruments())
                 .then(() => setMediaInstruments(JSON.parse(window.localStorage.getItem("instruments"))));
