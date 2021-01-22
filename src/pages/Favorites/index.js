@@ -66,7 +66,7 @@ export default function Favorites() {
                  <div className="post-container">
                      {posts?.length === 0
                       ? <h1>No posts were added to favourites</h1>
-                      : <Post data={posts} postOptions={true}/>}
+                      : <Post data={posts} postOptions={false}/>}
                  </div>
              </>
             }
