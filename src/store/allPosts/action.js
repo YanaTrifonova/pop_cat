@@ -3,7 +3,7 @@ import {apiUrl} from "../../config/constants";
 
 export const GET_ALL_POSTS = "GET_ALL_POSTS";
 
-function getAllPosts(data) {
+export function getAllPosts(data) {
     return {
         type: GET_ALL_POSTS,
         payload: data
