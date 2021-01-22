@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
-    "fsevents": "^1.2.11",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "^16.13.0",
@@ -54,5 +53,8 @@
         "statements": 100
       }
     }
+  },
+  "optionalDependencies": {
+    "fsevents": "^1.2.11"
   }
 }
