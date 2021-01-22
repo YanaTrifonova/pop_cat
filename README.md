@@ -1,6 +1,12 @@
 # Pop cat sing a song
  👉 [Go to Pop-Cat website](https://pop-cat.netlify.app/) 👈
 
+## Functional
+
+Basic functional. You can play different notes by different instruments with different cats.
+
+[![Pop cat sing a song](https://i.imgur.com/qLBI8oX.png)](https://vimeo.com/503410640)
+
 ## Repositories
 
 Frontend repository - current
