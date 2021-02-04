@@ -16,6 +16,7 @@ import {selectToken} from "../../store/user/selector";
 import {apiUrl} from "../../config/constants";
 import {preLoadCats, preLoadInstruments} from "../../store/preLoadMedia/actions";
 import {isNotePlayedSelector} from "../../store/record/selector";
+import Loading from "../../components/Loading";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -307,7 +308,7 @@ export default function Home() {
     return (
         <>
             {mediaInstruments === null
-             ? <h1>Loading...</h1>
+             ? <Loading />
              : <>
                  <Audio instrument={mediaInstruments[0]} type="default"/>
                  <Audio instrument={mediaInstruments[1]} type="piano-2"/>
@@ -322,7 +323,7 @@ export default function Home() {
                  <Audio instrument={mediaInstruments[10]} type="pig"/>
 
                  {mediaCats === null
-                  ? <h1>Loading...</h1>
+                  ? <Loading />
                   : <Jumbotron>
                       <h1>Cat:</h1>
                       <Tab.Container id="left-tabs-example"

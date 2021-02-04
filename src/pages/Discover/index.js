@@ -5,6 +5,7 @@ import {getData} from "../../store/allPosts/action";
 import {getAllPosts} from "../../store/allPosts/selector";
 import Post from "../../components/Post";
 import Audio from "../../components/Audio";
+import Loading from "../../components/Loading";
 import {preLoadInstruments} from "../../store/preLoadMedia/actions";
 import {likeSelector} from "../../store/likes/selector";
 import {favouriteSelector} from "../../store/favourites/selector";
@@ -39,7 +40,7 @@ export default function Discover() {
     return (
         <>
             {mediaInstruments === null
-             ? <h1>Loading...</h1>
+             ? <Loading/>
              : <>
                  <Audio instrument={mediaInstruments[0]} type="default"/>
                  <Audio instrument={mediaInstruments[1]} type="piano-2"/>
@@ -52,7 +53,8 @@ export default function Discover() {
                  <Audio instrument={mediaInstruments[8]} type="heart-bit"/>
                  <Audio instrument={mediaInstruments[9]} type="cows"/>
                  <Audio instrument={mediaInstruments[10]} type="pig"/>
-             </>}
+             </>
+            }
 
             <Jumbotron>
                 <h1>Discover songs</h1>
@@ -60,8 +62,9 @@ export default function Discover() {
 
             <div className="post-container">
                 {posts?.length === 0
-                 ? <h1>Loading..</h1>
-                 : <Post data={posts} postOptions={false}/>}
+                 ? <Loading/>
+                 : <Post data={posts} postOptions={false}/>
+                }
             </div>
         </>
     )

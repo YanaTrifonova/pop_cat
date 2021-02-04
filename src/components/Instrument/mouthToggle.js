@@ -10,5 +10,7 @@ export function mouthToggle(cat, open, index) {
         findCat = cats.find((thatCat) => thatCat.cat + index === cat?.id);
     }
 
-    cat.src = open ? apiUrl + findCat.url.openMouth : apiUrl + findCat.url.closeMouth;
+    if (cat) {
+        cat.src = open ? apiUrl + findCat.url.openMouth : apiUrl + findCat.url.closeMouth;
+    }
 }
