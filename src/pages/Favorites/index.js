@@ -43,7 +43,7 @@ export default function Favorites() {
              ? <a href={'/login'}>Please log in or sign up to see this page</a>
              : <>
                  {mediaInstruments === null
-                  ? <Loading />
+                  ? <Loading/>
                   : <>
                       <Audio instrument={mediaInstruments[0]} type="default"/>
                       <Audio instrument={mediaInstruments[1]} type="piano-2"/>

@@ -17,9 +17,9 @@ describe("appState action", () => {
         text: "text"
     }
 
-    const stateMock ={
+    const stateMock = {
         type: SET_MESSAGE,
-        payload : payloadMock,
+        payload: payloadMock,
     }
 
     test("should return an action object", () => {
@@ -47,7 +47,8 @@ describe("appState action", () => {
         await showMessageWithTimeout("variant", true, "text", 1000)(dispatch);
         jest.runAllTimers();
 
-        expect(dispatch.mock.calls).toEqual([[setMessage("variant", true, "text")],[clearMessage({ type: "CLEAR_MESSAGE"})]] );
+        expect(dispatch.mock.calls)
+            .toEqual([[setMessage("variant", true, "text")], [clearMessage({type: "CLEAR_MESSAGE"})]]);
         // expect(dispatch).toHaveBeenCalledWith(clearMessage)
     });
 })

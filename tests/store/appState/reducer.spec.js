@@ -1,5 +1,4 @@
 import reducer from "../../../src/store/appState/reducer";
-import {APP_DONE_LOADING, APP_LOADING, CLEAR_MESSAGE, SET_MESSAGE} from "../../../src/store/appState/actions";
 import * as types from "../../../src/store/appState/actions";
 
 describe("All posts reducer", () => {

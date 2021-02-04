@@ -308,7 +308,7 @@ export default function Home() {
     return (
         <>
             {mediaInstruments === null
-             ? <Loading />
+             ? <Loading/>
              : <>
                  <Audio instrument={mediaInstruments[0]} type="default"/>
                  <Audio instrument={mediaInstruments[1]} type="piano-2"/>
@@ -323,7 +323,7 @@ export default function Home() {
                  <Audio instrument={mediaInstruments[10]} type="pig"/>
 
                  {mediaCats === null
-                  ? <Loading />
+                  ? <Loading/>
                   : <Jumbotron>
                       <h1>Cat:</h1>
                       <Tab.Container id="left-tabs-example"
@@ -346,7 +346,8 @@ export default function Home() {
                                           <Nav.Link eventKey="catWinter" disabled={openRecordPanel}>Winter</Nav.Link>
                                       </Nav.Item>
                                       <Nav.Item>
-                                          <Nav.Link eventKey="catBW" disabled={openRecordPanel}>Black and White</Nav.Link>
+                                          <Nav.Link eventKey="catBW" disabled={openRecordPanel}>Black and
+                                              White</Nav.Link>
                                       </Nav.Item>
                                   </Nav>
                               </Col>
