@@ -8,9 +8,28 @@ export default function AboutPopCatAndMe() {
     return (
         <>
             <Jumbotron>
-                <h1>About Pop Cat</h1>
+                <h1>About Me</h1>
+                <div className="text-container">
+                    <h4>If you like my work please feel free to contact me via
+                        <a href="https://www.linkedin.com/in/yana-trifonova-0920b3179/"
+                           target="_blank"
+                           rel="noopener noreferrer"> LinkedIn</a> or
+                        <a href="mailto: trifonova.yana.prof@gmail.com?subject=Hello there!"> email</a>. Also you can
+                        see my other projects at
+                        <a href="https://github.com/YanaTrifonova"
+                           target="_blank"
+                           rel="noopener noreferrer"> Github
+                        </a>.
+                    </h4>
+                </div>
             </Jumbotron>
-            <h2 className="header-container">Meme: Pop Cat (cat opens his mouth wide and makes a sound "boop")</h2>
+
+            <Jumbotron>
+                <h1>About Pop Cat</h1>
+                <div className="text-container">
+                    <h4>Meme: Pop Cat (cat opens his mouth wide and makes a sound "boop")</h4>
+                </div>
+            </Jumbotron>
             <div className="text-container">
                 <p>At the end of November 2020, videos with a white cat, which opens its mouth wide, making the sound
                     "Boop", gained popularity in social networks. Now the animal "sings along" with hits from the 90s,
@@ -51,23 +70,6 @@ export default function AboutPopCatAndMe() {
                             11, 2020</a></blockquote>
                 </div>
             </div>
-
-            <Jumbotron>
-                <h1>About Me</h1>
-                <div className="text-container">
-                    <p>If you like my work please feel free to contact me via
-                        <a href="https://www.linkedin.com/in/yana-trifonova-0920b3179/"
-                           target="_blank"
-                           rel="noopener noreferrer"> LinkedIn</a> or
-                        <a href="mailto: trifonova.yana.prof@gmail.com?subject=Hello there!"> email</a>. Also you can
-                        see my other projects at
-                        <a href="https://github.com/YanaTrifonova"
-                           target="_blank"
-                           rel="noopener noreferrer"> Github
-                        </a>.
-                    </p>
-                </div>
-            </Jumbotron>
         </>
     )
 }
