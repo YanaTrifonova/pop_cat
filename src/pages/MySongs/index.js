@@ -2,7 +2,7 @@ import {Jumbotron} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import Audio from "../../components/Audio";
 import Post from "../../components/Post";
-import Loading from "../../components/Loading";
+import LoadingSpinner from "../../components/Spinner";
 import {useDispatch, useSelector} from "react-redux";
 import {preLoadInstruments} from "../../store/preLoadMedia/actions";
 import {selectToken, selectUserId} from "../../store/user/selector";
@@ -49,7 +49,7 @@ export default function MySongs() {
              ? <a href={'/login'}>Please log in or sign up to see this page</a>
              : <>
                  {mediaInstruments === null
-                  ? <Loading/>
+                  ? <LoadingSpinner/>
                   : <>
                       <Audio instrument={mediaInstruments[0]} type="default"/>
                       <Audio instrument={mediaInstruments[1]} type="piano-2"/>

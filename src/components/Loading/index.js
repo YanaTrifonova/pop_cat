@@ -1,13 +1,10 @@
 import React from "react";
-import Spinner from "react-bootstrap/Spinner";
-import "./spinner.css";
+import loadingCat from "../../images/loading_cat.gif";
 
 export default function Loading() {
     return (
-        <div className="loading_spinner">
-            <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-            </Spinner>
+        <div>
+            <img src={loadingCat} alt="Loading..."/>
         </div>
     );
 }

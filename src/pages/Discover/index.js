@@ -5,7 +5,7 @@ import {getData} from "../../store/allPosts/action";
 import {getAllPosts} from "../../store/allPosts/selector";
 import Post from "../../components/Post";
 import Audio from "../../components/Audio";
-import Loading from "../../components/Loading";
+import LoadingSpinner from "../../components/Spinner";
 import {preLoadInstruments} from "../../store/preLoadMedia/actions";
 import {likeSelector} from "../../store/likes/selector";
 import {favouriteSelector} from "../../store/favourites/selector";
@@ -40,7 +40,7 @@ export default function Discover() {
     return (
         <>
             {mediaInstruments === null
-             ? <Loading/>
+             ? <LoadingSpinner/>
              : <>
                  <Audio instrument={mediaInstruments[0]} type="default"/>
                  <Audio instrument={mediaInstruments[1]} type="piano-2"/>
@@ -62,7 +62,7 @@ export default function Discover() {
 
             <div className="post-container">
                 {posts?.length === 0
-                 ? <Loading/>
+                 ? <LoadingSpinner />
                  : <Post data={posts} postOptions={false}/>
                 }
             </div>
