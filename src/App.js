@@ -9,9 +9,10 @@ import Discover from "./pages/Discover";
 import MySongs from "./pages/MySongs";
 import Favorites from "./pages/Favorites";
 import AboutPopCatAndMe from "./pages/About";
+import PageNotFound from "./pages/404";
 
 import Navigation from "./components/Navigation";
-import Loading from "./components/Loading";
+import LoadingSpinner from "./components/Spinner";
 import MessageBox from "./components/MessageBox";
 
 import {selectAppLoading} from "./store/appState/selector";
@@ -32,15 +33,16 @@ function App() {
             <div className="App">
                 <Navigation/>
                 <MessageBox/>
-                {isLoading ? <Loading/> : null}
+                {isLoading ? <LoadingSpinner /> : null}
                 <Switch>
                     <Route exact path="/" component={Home}/>
-                    <Route path="/discover" component={Discover}/>
-                    <Route path="/private" component={MySongs}/>
-                    <Route path="/favorites" component={Favorites}/>
-                    <Route path="/about" component={AboutPopCatAndMe}/>
-                    <Route path="/signup" component={SignUp}/>
-                    <Route path="/login" component={Login}/>
+                    <Route exact path="/discover" component={Discover}/>
+                    <Route exact path="/private" component={MySongs}/>
+                    <Route exact path="/favorites" component={Favorites}/>
+                    <Route exact path="/about" component={AboutPopCatAndMe}/>
+                    <Route exact path="/signup" component={SignUp}/>
+                    <Route exact path="/login" component={Login}/>
+                    <Route path="/" component={PageNotFound}/>
                 </Switch>
             </div>
         </Router>
