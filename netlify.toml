@@ -1,5 +1,5 @@
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
-  for = "/**"
+  for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "pop-cat.herokuapp.com"
