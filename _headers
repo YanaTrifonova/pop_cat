@@ -1,0 +1,4 @@
+/*
+Access-Control-Allow-Origin: https://pop-cat.herokuapp.com
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Headers: *
